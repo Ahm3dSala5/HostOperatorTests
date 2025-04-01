@@ -197,7 +197,7 @@ namespace HostOperator.Tests
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div[1]/button"));
             Assert.IsTrue(sendMessage.Displayed);
             Assert.IsTrue(sendMessage.Enabled);
-            Assert.AreEqual(sendMessage.Text,"Send Message");
+            Assert.AreEqual(sendMessage.Text, "Send Message");
             Assert.AreEqual(sendMessage.GetAttribute("onclick"), "sendMessage();");
         }
 
@@ -231,7 +231,7 @@ namespace HostOperator.Tests
 
             var TOLabel = driver.FindElement
                 (By.XPath("//*[@id=\"SendMessage\"]/form/div/div[1]/div/div/label"));
-            Assert.AreEqual(TOLabel.Text,"To");
+            Assert.AreEqual(TOLabel.Text, "To");
             Assert.IsTrue(TOLabel.Displayed);
             Assert.IsTrue(TOLabel.Enabled);
 
@@ -242,7 +242,7 @@ namespace HostOperator.Tests
             Assert.IsTrue(reciever.Enabled);
 
             var subjectLabel = driver.FindElement(By.XPath("//*[@id=\"SendMessage\"]/form/div/div[2]/div/div/label"));
-            Assert.AreEqual(subjectLabel.Text,"Subject");
+            Assert.AreEqual(subjectLabel.Text, "Subject");
             Assert.IsTrue(subjectLabel.Displayed);
             Assert.IsTrue(subjectLabel.Enabled);
 
@@ -264,7 +264,7 @@ namespace HostOperator.Tests
             var sendBtn = driver.FindElement(By.XPath("//*[@id=\"SendMessage\"]/form/div/div[4]/button"));
             Assert.IsTrue(sendBtn.Displayed);
             Assert.IsTrue(sendBtn.Enabled);
-            Assert.AreEqual(sendBtn.Text,"Send");
+            Assert.AreEqual(sendBtn.Text, "Send");
             sendBtn.Click();
         }
 
