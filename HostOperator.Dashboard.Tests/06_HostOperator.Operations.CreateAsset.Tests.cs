@@ -122,7 +122,6 @@ namespace HostOperator.Tests
             Assert.AreNotEqual(UrlBeforeClickOnLogout, UrlAfterClickOnLogout);
         }
 
-
         [Test]
         public void CreateAssetPage_NotificationTest()
         {
