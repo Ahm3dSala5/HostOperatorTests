@@ -104,9 +104,9 @@ namespace HostOperator.Tests
                 (By.ClassName("m-topbar__username"));
             hiHostOperator.Click();
 
-            Thread.Sleep(5000);
             var logoutBtn = driver.FindElement
                 (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/div/div/div/div/ul/li[4]/a"));
+            Thread.Sleep(5000);
             Assert.IsTrue(logoutBtn.Enabled);
             Assert.IsTrue(logoutBtn.Displayed);
             Assert.AreEqual(logoutBtn.Text, "Logout");
@@ -139,7 +139,6 @@ namespace HostOperator.Tests
             Assert.AreEqual(unReadMessage.GetAttribute("class"), "m-badge m-badge--danger");
         }
 
-
         [Test]
         public void ReviewEditsPage_SubHeaderTitleTest()
         {
@@ -162,7 +161,7 @@ namespace HostOperator.Tests
             ReviewEditsPage_OpenPage();
 
             var dashboardNavLink = driver.FindElement
-                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[1]/a/span"));
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[1]/a"));
             Assert.IsTrue(dashboardNavLink.Enabled);
             Assert.IsTrue(dashboardNavLink.Displayed);
             Assert.AreEqual(dashboardNavLink.Text, "Dashboard");
