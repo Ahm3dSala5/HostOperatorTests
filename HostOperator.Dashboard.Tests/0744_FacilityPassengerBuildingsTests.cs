@@ -42,90 +42,134 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void PassengerBuildingsPage_TestReportOption()
+        public void PassengerBuildingsPage_ReportsOptionTest()
         {
             var reportOption = driver.FindElement
                 (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
-            Assert.AreEqual(reportOption.Text, "Reports");
-            Assert.AreEqual(reportOption.GetAttribute("custom-data"), "Reports");
-            Assert.IsTrue(reportOption.Displayed);
             Assert.IsTrue(reportOption.Enabled);
-            var URLBeforeClick = driver.Url;
+            Assert.IsTrue(reportOption.Displayed);
+            Assert.AreEqual(reportOption.Text, "Reports");
+            Assert.AreEqual(reportOption.GetAttribute("role"), "menuitem");
+            Assert.AreEqual(reportOption.GetAttribute("href"), $"{driver.Url}#");
+            Assert.AreEqual(reportOption.GetAttribute("custom-data"), "Reports");
+            Assert.AreEqual(reportOption.GetAttribute("class"), "side-menu-links m-menu__link m-menu__toggle");
+
+            var reportsOptionIcon = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a/i[1]"));
+            Assert.IsTrue(reportsOptionIcon.Enabled);
+            Assert.IsTrue(reportsOptionIcon.Displayed);
+            Assert.AreEqual(reportsOptionIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
+
+            var reportsOptionArrow = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a/i[2]"));
+            Assert.IsTrue(reportsOptionArrow.Enabled);
+            Assert.IsTrue(reportsOptionArrow.Displayed);
+            Assert.AreEqual(reportsOptionArrow.GetAttribute("class"), "m-menu__ver-arrow la la-angle-right");
+
+            var reportsOptionText = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a/span/span"));
+            Assert.IsTrue(reportsOptionText.Enabled);
+            Assert.IsTrue(reportsOptionText.Displayed);
+            Assert.AreEqual(reportsOptionText.Text, "Reports");
+            Assert.AreEqual(reportsOptionText.GetAttribute("class"), "title");
+        }
+
+        [Test]
+        public void PassengerBuildingsPage_FacilityOptionTest()
+        {
+            // to click on report option 
+            var reportOption = driver.FindElement
+                 (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
             reportOption.Click();
-            var URLAfterClick = driver.Url;
-            Assert.AreEqual(URLBeforeClick, $"{URLAfterClick}");
-            Assert.AreEqual(reportOption.GetAttribute("href"), $"{URLAfterClick}#");
-        }
 
-        [Test]
-        public void PassengerBuildingsPage_TestFacilityOption()
-        {
-            // to click on report option 
-            PassengerBuildingsPage_TestReportOption();
-
-            var FacilityOption = driver.FindElement
+            var facilityOption = driver.FindElement
                 (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a"));
-            Assert.AreEqual(FacilityOption.Text, "Facility");
-            Assert.AreEqual(FacilityOption.GetAttribute("custom-data"), "Facility");
-            var currentUrl = driver.Url;
-            Assert.AreEqual(FacilityOption.GetAttribute("href"), $"{currentUrl}#");
-            Assert.IsTrue(FacilityOption.Displayed);
-            Assert.IsTrue(FacilityOption.Enabled);
-            FacilityOption.Click();
+            Assert.IsTrue(facilityOption.Enabled);
+            Assert.IsTrue(facilityOption.Displayed);
+            Assert.AreEqual(facilityOption.Text, "Facility");
+            Assert.AreEqual(facilityOption.GetAttribute("role"), "menuitem");
+            Assert.AreEqual(facilityOption.GetAttribute("href"), $"{driver.Url}#");
+            Assert.AreEqual(facilityOption.GetAttribute("custom-data"), "Facility");
+            Assert.AreEqual(facilityOption.GetAttribute("class"), "side-menu-links m-menu__link m-menu__toggle");
+
+            var facilityOptionArrow = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[3]/a/i[2]"));
+            Assert.IsTrue(facilityOptionArrow.Enabled);
+            Assert.IsTrue(facilityOptionArrow.Displayed);
+            Assert.AreEqual(facilityOptionArrow.GetAttribute("class"), "m-menu__ver-arrow la la-angle-right");
+
+            var facilityOptionIcon = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a/i[1]"));
+            Assert.IsTrue(facilityOptionIcon.Enabled);
+            Assert.IsTrue(facilityOptionIcon.Displayed);
+            Assert.AreEqual(facilityOptionIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
+
+            var facilityOptionText = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a/span/span"));
+            Assert.IsTrue(facilityOptionText.Enabled);
+            Assert.IsTrue(facilityOptionText.Displayed);
+            Assert.AreEqual(facilityOptionText.Text, "Facility");
+            Assert.AreEqual(facilityOptionText.GetAttribute("class"), "title");
         }
 
         [Test]
-        public void PassengerBuildingsPage_TestPassengerBuildingsOption()
+        public void PassengerBuildingsPage_PassengerFacilitiesOptionTest()
         {
-            // to click on report option 
-            PassengerBuildingsPage_TestReportOption();
-            // to click on equipment option
+            var reportOption = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
+            reportOption.Click();
+
             var facilityOption = driver.FindElement
               (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a"));
             facilityOption.Click();
 
             var PassengerBuildingsOption = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[4]/a"));
-            Assert.AreEqual(PassengerBuildingsOption.GetAttribute("custom-data"), "Passenger Buildings");
-            var PassengerBuidlingsURL = "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/PassengerBuildings";
-            Assert.AreEqual(PassengerBuildingsOption.GetAttribute("href"), $"{PassengerBuidlingsURL}");
-            Assert.AreEqual(PassengerBuildingsOption.GetAttribute("target"),"_self");
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[3]/a"));
             Assert.IsTrue(PassengerBuildingsOption.Enabled);
-            PassengerBuildingsOption.Click();
+            Assert.IsTrue(PassengerBuildingsOption.Displayed);
+            Assert.AreEqual(PassengerBuildingsOption.GetAttribute("role"),"menuitem");
+            Assert.AreEqual(PassengerBuildingsOption.GetAttribute("custom-data"), "Passenger Buildings");
+            Assert.AreEqual(PassengerBuildingsOption.GetAttribute("class"), "side-menu-links m-menu__link");
+            Assert.AreEqual(PassengerBuildingsOption.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/PassengerFacilities");
+
+            var passengerBuildingsOptionIcon = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[4]/a/i"));
+            Assert.IsTrue(passengerBuildingsOptionIcon.Enabled);
+            Assert.IsTrue(passengerBuildingsOptionIcon.Displayed);
+            Assert.AreEqual(passengerBuildingsOptionIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
+
+            var passengerBuildingsOptionText = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[4]/a/span/span"));
+            Assert.IsTrue(passengerBuildingsOptionText.Enabled);
+            Assert.IsTrue(passengerBuildingsOptionText.Displayed);
+            Assert.AreEqual(passengerBuildingsOptionText.Text,"Passenger Buildings");
+            Assert.AreEqual(passengerBuildingsOptionText.GetAttribute("class"),"title");
         }
 
         // to open page
         [Test]
         public void PassengerBuildingsPage_OpenPage()
         {
-            var reportOption = driver.FindElement
-              (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
-            reportOption.Click();
-
-            var facilityOption = driver.FindElement
-              (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a"));
-            facilityOption.Click();
-
-            var PassengerBuildingsOption = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[4]/a"));
-            PassengerBuildingsOption.Click();
+            driver.Navigate().GoToUrl("http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/PassengerBuildings");
         }
 
         [Test]
-        public void PassengerBuildingsPaga_TableBarTest()
+        public void PassengerBuildingsPage_TopUserNameTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
-            var hiHostOperator = driver.FindElement
+            var HiUserName = driver.FindElement
                 (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/a/span[1]"));
-            Assert.AreEqual(hiHostOperator.Text, "HI,");
-            Assert.True(hiHostOperator.Displayed);
-            Assert.True(hiHostOperator.Enabled);
+            Assert.IsTrue(HiUserName.Enabled);
+            Assert.IsTrue(HiUserName.Displayed);
+            Assert.AreEqual(HiUserName.Text, "HI,");
+            Assert.AreEqual(HiUserName.GetAttribute("class"), "m-topbar__username");
 
             var username = driver.FindElement(By.Id("UserName"));
-            Assert.True(username.Displayed);
             Assert.True(username.Enabled);
+            Assert.True(username.Displayed);
+            Assert.AreEqual(username.GetAttribute("style"), "cursor: pointer; margin-bottom: -1.5rem;");
         }
 
         [Test]
@@ -135,100 +179,129 @@ namespace HostOperator.Tests
             PassengerBuildingsPage_OpenPage();
 
             var hiHostOperator = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/a/span[1]"));
+                (By.ClassName("m-topbar__username"));
             hiHostOperator.Click();
 
             var logoutBtn = driver.FindElement
                 (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/div/div/div/div/ul/li[4]/a"));
+            Thread.Sleep(9000);
             Assert.IsTrue(logoutBtn.Enabled);
             Assert.IsTrue(logoutBtn.Displayed);
             Assert.AreEqual(logoutBtn.Text, "Logout");
-
-            var UrlBeforeClickOnLogout = driver.Url;
-            logoutBtn.Click();
-            var UrlAfterClickOnLogout = driver.Url;
-            Assert.AreNotEqual(UrlBeforeClickOnLogout, UrlAfterClickOnLogout);
+            Assert.AreEqual(logoutBtn.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/Account/Logout");
+            Assert.AreEqual(logoutBtn.GetAttribute("class"), "btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder");
         }
 
         [Test]
-        public void PassengerBuildingsPage_NotificationTest()
+        public void PassengerBuildingsPage_NotificationIconTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
+
+            var notificationBtn = driver.FindElement
+                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[1]/a"));
+            Assert.IsTrue(notificationBtn.Enabled);
+            Assert.IsTrue(notificationBtn.Displayed);
+            Assert.AreEqual(notificationBtn.GetAttribute("class"), "m-nav__link m-dropdown__toggle");
+            Assert.AreEqual(notificationBtn.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Messages");
 
             var notificationIcon = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[1]/a"));
-            Assert.IsTrue(notificationIcon.Displayed);
+                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[1]/a/span[1]/i"));
             Assert.IsTrue(notificationIcon.Enabled);
-            Assert.AreEqual(notificationIcon.GetAttribute("href"),
-                "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Messages");
-            notificationIcon.Click();
+            Assert.IsTrue(notificationIcon.Displayed);
+            Assert.AreEqual(notificationIcon.GetAttribute("class"), "flaticon-bell");
+
+            var unReadMessage = driver.FindElement(By.Id("UnreadChatMessageCount"));
+            Assert.IsTrue(unReadMessage.Enabled);
+            Assert.IsTrue(unReadMessage.Displayed);
+            Assert.AreEqual(unReadMessage.GetAttribute("class"), "m-badge m-badge--danger");
         }
 
         [Test]
-        public void PassengerBuildingsPage_TestPageTitle()
+        public void PassengerBuildingsPage_SubHeaderTitleTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
-            var title = driver.FindElement
-                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/h1/span"));
-            Assert.AreEqual(title.Text, "Passenger Buildings");
-            Assert.IsTrue(title.Displayed);
-            Assert.IsTrue(title.Enabled);
+            var subTite = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/h1"));
+
+            Assert.IsTrue(subTite.Enabled);
+            Assert.IsTrue(subTite.Displayed);
+            Assert.AreEqual(subTite.Text, "Passenger Buildings");
+            Assert.AreEqual(subTite.GetAttribute("class"), "m-subheader__title m-subheader__title--separator");
         }
 
         [Test]
-        public void PassengerBuildingsPage_ReportBtnTest()
+        public void PassengerBuildingsPage_ReportNavigationLinkTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
-            var reportBtn = driver.FindElement
-                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[1]/a/span"));
-            Assert.AreEqual(reportBtn.Text, "Reports");
-            Assert.IsTrue(reportBtn.Displayed);
-            Assert.IsTrue(reportBtn.Enabled);
-            var UrlBeforeClick = driver.Url;
-            reportBtn.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreNotEqual(UrlBeforeClick, UrlAfterClick);
+            var reportsNavLink = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[1]/a"));
+            Assert.IsTrue(reportsNavLink.Enabled);
+            Assert.IsTrue(reportsNavLink.Displayed);
+            Assert.AreEqual(reportsNavLink.Text, "Reports");
+            Assert.AreEqual(reportsNavLink.GetAttribute("class"), "m-nav__link");
+            Assert.AreEqual(reportsNavLink.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/");
         }
 
-        // must be enabled and when click must open same page
         [Test]
-        public void PassengerBuildingsPage_FacilityBtnTest()
+        public  void PassengerBuildingsPages_Seperator1Test()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
-            var facilityBtn = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a"));
-            Assert.AreEqual(facilityBtn.Text, "Facility");
-            Assert.IsTrue(facilityBtn.Displayed);
-            Assert.IsTrue(facilityBtn.Enabled);
-            var UrlBeforeClick = driver.Url;
-            facilityBtn.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreEqual(UrlBeforeClick, UrlAfterClick);
+            var Seperator = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[2]"));
+            Assert.IsTrue(Seperator.Enabled);
+            Assert.IsTrue(Seperator.Displayed);
+            Assert.AreEqual(Seperator.Text,">");
+            Assert.AreEqual(Seperator.GetAttribute("class"), "m-nav__separator");
+        }
+
+        [Test]
+        public void PassengerBuildingsPage_FacilityNavigationLinkTest()
+        {
+            // to open passenger buildings page
+            PassengerBuildingsPage_OpenPage();
+
+            var facilityNavLink = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[3]/a"));
+            Assert.IsTrue(facilityNavLink.Enabled);
+            Assert.IsTrue(facilityNavLink.Displayed);
+            Assert.AreEqual(facilityNavLink.Text, "Facility");
+            Assert.AreEqual(facilityNavLink.GetAttribute("class"), "m-nav__link");
+        }
+
+        [Test]
+        public void PassengerBuildingsPage_Seperator2Test()
+        {
+            // to open passenger buildings page
+            PassengerBuildingsPage_OpenPage();
+
+            var Seperator = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[2]"));
+            Assert.IsTrue(Seperator.Enabled);
+            Assert.IsTrue(Seperator.Displayed);
+            Assert.AreEqual(Seperator.Text, ">");
+            Assert.AreEqual(Seperator.GetAttribute("class"), "m-nav__separator");
         }
 
         // this button also must opne same page
         [Test]
-        public void PassengerBuildingsPage_PassengerBuildingsBtnTest()
+        public void PassengerBuildingsPage_PassengerBuildingsNavigationLinkTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
-            var PassengerPacilitiesBtn = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[4]/a"));
-            Assert.AreEqual(PassengerPacilitiesBtn.Text, "Passenger Buildings");
-            Assert.IsTrue(PassengerPacilitiesBtn.Displayed);
-            Assert.IsTrue(PassengerPacilitiesBtn.Enabled);
-            var UrlBeforeClick = driver.Url;
-            PassengerPacilitiesBtn.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreEqual(UrlBeforeClick, UrlAfterClick);
+            var passengerBuildingsNavLink = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[5]/a"));
+            Assert.IsTrue(passengerBuildingsNavLink.Enabled);
+            Assert.IsTrue(passengerBuildingsNavLink.Displayed);
+            Assert.AreEqual(passengerBuildingsNavLink.Text, "Passenger Buildings");
+            Assert.AreEqual(passengerBuildingsNavLink.GetAttribute("class"), "m-nav__link");
         }
 
         [Test]
@@ -239,13 +312,16 @@ namespace HostOperator.Tests
 
             var lengthLabel = driver.FindElement(By.XPath("//*[@id=\"passengerBuildings_length\"]/label"));
             Assert.IsTrue(lengthLabel.Enabled);
+            Assert.IsTrue(lengthLabel.Displayed);
             Assert.IsTrue(lengthLabel.Text.Contains("Show"));
 
             var lengthValue = driver.FindElement(By.Name("passengerBuildings_length"));
+            Assert.IsTrue(lengthValue.Enabled);
+            Assert.IsTrue(lengthValue.Displayed);
+            Assert.AreEqual(lengthValue.GetAttribute("aria-controls"), "passengerBuildings");
+
             var selectedLengthValue = new SelectElement(lengthValue);
             selectedLengthValue.SelectByIndex(1);
-            Assert.IsTrue(lengthValue.Displayed);
-            Assert.IsTrue(lengthValue.Enabled);
         }
 
         [Test]
@@ -256,27 +332,32 @@ namespace HostOperator.Tests
 
             var tableFilterLabel = driver.FindElement
                 (By.Id("passengerBuildings_filter"));
+            Assert.IsTrue(tableFilterLabel.Enabled);
             Assert.IsTrue(tableFilterLabel.Displayed);
             Assert.AreEqual(tableFilterLabel.Text, "Search:");
 
             var tableFilterInput = driver.FindElement
-                (By.XPath("//*[@id=\"passengerBuildings_filter\"]/label"));
+                (By.XPath("//*[@id=\"passengerBuildings_filter\"]/label/input"));
             tableFilterInput.SendKeys("Code");
-            Assert.IsTrue(tableFilterInput.Displayed);
             Assert.IsTrue(tableFilterInput.Enabled);
+            Assert.IsTrue(tableFilterInput.Displayed);
+            Assert.AreEqual(tableFilterInput.GetAttribute("type"),"search");
+            Assert.AreEqual(tableFilterInput.GetAttribute("aria-controls"), "passengerBuildings");
         }
 
         [Test]
-        public void PassengerBuildingsPage_AssetClassParagraphTest()
+        public void PassengerBuildingsPage_AssetClassDropdownlistTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
             var assetClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/div/label"));
-            Assert.AreEqual(assetClassLabel.Text, "Asset Class");
             Assert.IsTrue(assetClassLabel.Enabled);
             Assert.IsTrue(assetClassLabel.Displayed);
+            Assert.AreEqual(assetClassLabel.Text, "Asset Class");
+            Assert.AreEqual(assetClassLabel.GetAttribute("for"),"AssetClass");
+            Assert.AreEqual(assetClassLabel.GetAttribute("class"),"form-label");
 
             var assetClassInput = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/div/b"));
@@ -286,16 +367,18 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void PassengerBuildingsPage_AssetSubClassParagraphTest()
+        public void PassengerBuildingsPage_AssetSubClassDropdownlistTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
             var assetSubClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div/label"));
-            Assert.AreEqual(assetSubClassLabel.Text, "Asset Subclass");
             Assert.IsTrue(assetSubClassLabel.Enabled);
             Assert.IsTrue(assetSubClassLabel.Displayed);
+            Assert.AreEqual(assetSubClassLabel.Text, "Asset Subclass");
+            Assert.AreEqual(assetSubClassLabel.GetAttribute("class"),"form-label");
+            Assert.AreEqual(assetSubClassLabel.GetAttribute("for"),"AssetSubClass");
 
             var assetSubClassValue = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div/b"));
@@ -304,17 +387,22 @@ namespace HostOperator.Tests
             Assert.AreEqual(assetSubClassValue.Text, "Passenger Facilities");
         }
 
+
+        // there are error in this pices 
+        // asset type label must linked with asset type but is link with asset subclass
         [Test]
-        public void PassengerBuildingssPage_AssetTypeParagraphTest()
+        public void PassengerBuildingssPage_AssetTypeDropdownlistTest()
         {
             // to open passenger buildings page
             PassengerBuildingsPage_OpenPage();
 
             var assetTypeLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[3]/div/div/label"));
-            Assert.AreEqual(assetTypeLabel.Text, "Asset Type");
             Assert.IsTrue(assetTypeLabel.Enabled);
             Assert.IsTrue(assetTypeLabel.Displayed);
+            Assert.AreEqual(assetTypeLabel.Text, "Asset Type");
+            Assert.AreEqual(assetTypeLabel.GetAttribute("for"),"AssetType");
+            Assert.AreEqual(assetTypeLabel.GetAttribute("class"),"form-label");
 
             var assetTypeParagraph = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[3]/div/div/b"));
@@ -324,24 +412,19 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void PassengerBuildingssPage_ReOrderTableTest()
+        public void PassengerBuildingssPage_PassengerBuildingsTableTest()
         {
             // to open passenger buildings page
-            ///////////////////////////////////
-            var reportOption = driver.FindElement
-              (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
-            reportOption.Click();
+            PassengerBuildingsPage_OpenPage();
 
-            var facilityOption = driver.FindElement
-              (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a"));
-            facilityOption.Click();
+            var table = driver.FindElement(By.Id("passengerBuildings"));
+            Assert.IsTrue(table.Enabled);
+            Assert.IsTrue(table.Displayed);
+            Assert.AreEqual(table.GetAttribute("role"),"grid");
+            Assert.AreEqual(table.GetAttribute("aria-describedby"), "passengerBuildings_info");
+            Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable dataTable no-footer");
 
-            var PassengerBuildingsOption = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[4]/a"));
-            PassengerBuildingsOption.Click();
-            ///////////////////////////////////
-
-            var columns = driver.FindElements(By.Id("passengerBuildings"));
+            var columns = driver.FindElements(By.ClassName("sorting"));
             foreach(var column in columns)
             {
                 Assert.IsTrue(column.Displayed);
@@ -493,15 +576,19 @@ namespace HostOperator.Tests
             PassengerBuildingsPage_OpenPage();
 
             var previousBtn = driver.FindElement(By.Id("passengerBuildings_previous"));
-            Assert.AreEqual(previousBtn.Text, "Previous");
-            Assert.IsTrue(previousBtn.Displayed);
             Assert.IsTrue(previousBtn.Enabled);
+            Assert.IsTrue(previousBtn.Displayed);
+            Assert.AreEqual(previousBtn.Text, "Previous");
+            Assert.AreEqual(previousBtn.GetAttribute("aria-controls"), "passengerBuildings");
+            Assert.AreEqual(previousBtn.GetAttribute("class"), "paginate_button previous disabled");
             previousBtn.Click();
 
             var nextBtn = driver.FindElement(By.Id("passengerBuildings_next"));
+            Assert.IsTrue(nextBtn.Enabled);
+            Assert.IsTrue(nextBtn.Displayed);
             Assert.AreEqual(nextBtn.Text, "Next");
-            Assert.IsTrue(previousBtn.Displayed);
-            Assert.IsTrue(previousBtn.Enabled);
+            Assert.AreEqual(nextBtn.GetAttribute("aria-controls"), "passengerBuildings");
+            Assert.AreEqual(nextBtn.GetAttribute("class"), "paginate_button next disabled");
             nextBtn.Click();
         }
 
@@ -512,9 +599,10 @@ namespace HostOperator.Tests
             PassengerBuildingsPage_OpenPage();
 
             var exportBtn = driver.FindElement(By.Id("ExportCSVLink"));
-            Assert.AreEqual(exportBtn.Text, "Export CSV");
-            Assert.IsTrue(exportBtn.Displayed);
             Assert.IsTrue(exportBtn.Enabled);
+            Assert.IsTrue(exportBtn.Displayed);
+            Assert.AreEqual(exportBtn.Text, "Export CSV");
+            Assert.AreEqual(exportBtn.GetAttribute("class"), "btn btn-primary waves-effect mr-4");
             exportBtn.Click();
         }
 
@@ -529,6 +617,35 @@ namespace HostOperator.Tests
             Assert.IsTrue(sideLeft.Enabled);
             Assert.IsTrue(sideLeft.Displayed);
             sideLeft.Click();
+        }
+
+        [Test]
+        public void PassengerBuildingsPage_DataTableInfoTest()
+        {
+            // to open passenger buildings page
+            PassengerBuildingsPage_OpenPage();
+
+            var tableInfo = driver.FindElement(By.Id("passengerBuildings_info"));
+            Assert.IsTrue(tableInfo.Enabled);
+            Assert.IsTrue(tableInfo.Displayed);
+            Assert.AreEqual(tableInfo.GetAttribute("role"), "status");
+            Assert.AreEqual(tableInfo.GetAttribute("aria-live"), "polite");
+            Assert.AreEqual(tableInfo.GetAttribute("class"), "dataTables_info");
+            Assert.IsTrue(tableInfo.Text.Contains("Showing") && tableInfo.Text.Contains("entries"));
+        }
+
+        [Test]
+        public void PassengerBuildingsPage_CopyRightTest()
+        {
+            // to open passenger buildings page
+            PassengerBuildingsPage_OpenPage();
+
+            var copyRight = driver.FindElement
+                (By.XPath("/html/body/footer/div/div/div[1]/span"));
+            Assert.IsTrue(copyRight.Enabled);
+            Assert.IsTrue(copyRight.Displayed);
+            Assert.AreEqual(copyRight.Text, "2025 © CTDOT (Ver .)");
+            Assert.AreEqual(copyRight.GetAttribute("class"), "m-footer__copyright");
         }
     }
 }

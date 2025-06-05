@@ -319,11 +319,18 @@ namespace HostOperator.Tests
             // open view/edit page
             ViewEditsPage_OpenPage();
 
-            var columns = driver.FindElements(By.Id("AssetsTable"));
+            var table = driver.FindElement(By.Id("AssetsTable"));
+            Assert.IsTrue(table.Enabled);
+            Assert.IsTrue(table.Displayed);
+            Assert.AreEqual(table.GetAttribute("role"),"grid");
+            Assert.AreEqual(table.GetAttribute("aria-describedby"), "AssetsTable_info");
+            Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable dataTable no-footer");
+
+            var columns = driver.FindElements(By.ClassName("sorting"));
             foreach(var column in columns)
             {
-                Assert.IsTrue(column.Displayed);
                 Assert.IsTrue(column.Enabled);
+                Assert.IsTrue(column.Displayed);
                 column.Click();
             }
 

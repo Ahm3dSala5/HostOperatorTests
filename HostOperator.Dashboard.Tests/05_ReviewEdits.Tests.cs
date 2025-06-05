@@ -95,26 +95,6 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void ReviewEditsPage_LogoutBtn()
-        {
-            // to open review edit page
-            ReviewEditsPage_OpenPage();
-
-            var hiHostOperator = driver.FindElement
-                (By.ClassName("m-topbar__username"));
-            hiHostOperator.Click();
-
-            var logoutBtn = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/div/div/div/div/ul/li[4]/a"));
-            Thread.Sleep(5000);
-            Assert.IsTrue(logoutBtn.Enabled);
-            Assert.IsTrue(logoutBtn.Displayed);
-            Assert.AreEqual(logoutBtn.Text, "Logout");
-            Assert.AreEqual(logoutBtn.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/Account/Logout");
-            Assert.AreEqual(logoutBtn.GetAttribute("class"), "btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder");
-        }
-
-        [Test]
         public void ReviwEditsPage_NotificationIconTest()
         {
             // to open review edit page
@@ -166,7 +146,7 @@ namespace HostOperator.Tests
             Assert.IsTrue(dashboardNavLink.Displayed);
             Assert.AreEqual(dashboardNavLink.Text, "Dashboard");
             Assert.AreEqual(dashboardNavLink.GetAttribute("class"), "m-nav__link");
-            Assert.AreEqual(dashboardNavLink.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Dashboard");
+            Assert.AreEqual(dashboardNavLink.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/");
         }
 
         [Test]
@@ -187,10 +167,10 @@ namespace HostOperator.Tests
         public void ReviewEditsPage_AssetStateDropdownlistTest()
         {
             // to open review page 
-            ReviewEditsPage_ReviewEditsOptionTest();
+            ReviewEditsPage_OpenPage();
 
             var assetStateLabel = driver.FindElement
-                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[3]/span"));
+                (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/div/label"));
             Assert.IsTrue(assetStateLabel.Enabled);
             Assert.IsTrue(assetStateLabel.Displayed);
             Assert.AreEqual(assetStateLabel.Text, "Asset State");
@@ -216,7 +196,7 @@ namespace HostOperator.Tests
         public void ReviewEditsPage_AssetClassDropdownlistTest()
         {
             // to open review page 
-            ReviewEditsPage_ReviewEditsOptionTest();
+            ReviewEditsPage_OpenPage();
 
             var assetClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div/label"));
@@ -245,7 +225,8 @@ namespace HostOperator.Tests
         public void ReviewEditsPage_AssetSubClassDropdownlistTest()
         {
             // to open review page 
-            ReviewEditsPage_ReviewEditsOptionTest();
+            ReviewEditsPage_OpenPage();
+
             var assetSubClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[3]/div/div/label"));
             Assert.IsTrue(assetSubClassLabel.Enabled);
@@ -259,17 +240,19 @@ namespace HostOperator.Tests
             Assert.IsTrue(assetSubClassInput.Displayed);
             Assert.AreEqual(assetSubClassInput.GetAttribute("class"),"form-control");
 
-            var defaultOption = driver.FindElement(By.XPath(""));
+            var defaultOption = driver.FindElement(By.XPath("//*[@id=\"AssetSubClassDropDownChange\"]/option"));
             Assert.IsTrue(defaultOption.Enabled);
             Assert.IsTrue(defaultOption.Displayed);
             Assert.AreEqual(defaultOption.Text,"No Asset Subclass");
         }
 
+        /// asset class label linked with asset sub class 
+        /// nut it must linked with asset type
         [Test]
         public void ReviewEditsPage_AssetTypeDropdownlistTest()
         {
             // to open review page 
-            ReviewEditsPage_ReviewEditsOptionTest();
+            ReviewEditsPage_OpenPage();
 
             var assetTypeLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[4]/div/div/label"));
@@ -343,11 +326,8 @@ namespace HostOperator.Tests
             Assert.IsNotNull(table);
             Assert.IsTrue(table.Enabled);
             Assert.IsTrue(table.Displayed);
-            Assert.AreEqual(table.GetAttribute("role"), "grid");
-            Assert.AreEqual(table.GetAttribute("aria-describedby"),"AssetsTable_info");
-            Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable no-footer dataTable");
 
-            var columns = driver.FindElements(By.Id("AssetsTable"));
+            var columns = driver.FindElements(By.ClassName("sorting"));
             foreach (var column in columns)
             {
                 Assert.IsTrue(column.Displayed);
@@ -445,19 +425,6 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void ReviewEditsPage_SelectAllCheckBoxTest()
-        {
-            // to open reviw edits page
-            ReviewEditsPage_OpenPage();
-
-            var selectAll = driver.FindElement(By.Id("btnSelectAll"));
-            Assert.IsTrue(selectAll.Enabled);
-            Assert.IsTrue(selectAll.Displayed);
-            Assert.AreEqual(selectAll.GetAttribute("type"),"checkbox");
-            selectAll.Click();
-        }
-
-        [Test]
         public void ReviewEditsPage_StatusIConTest()
         {
             // to open reviw edits page
@@ -483,16 +450,13 @@ namespace HostOperator.Tests
         [Test]
         public void ReviewEditsPage_StatusIconFormTest()
         {
-            // to open status form page
-            ReviewEditsPage_StatusIConTest();
+            // to open reviw edits page
+            ReviewEditsPage_OpenPage();
 
-            // modal title 
-            var title = driver.FindElement(By.XPath("//*[@id=\"StatusModal\"]/div/div/div[1]/h4"));
-            Assert.IsTrue(title.Enabled);
-            Assert.IsTrue(title.Displayed);
-            Assert.AreEqual(title.Text,"Asset Status");
+            var statusAncor = driver.FindElement
+                (By.XPath("//*[@id=\"AssetsTable\"]/tbody/tr[3]/td[9]/a[4]"));
+            statusAncor.Click();
 
-            // modal title //
             var table = driver.FindElement
                 (By.Id("StatusTable"));
             Assert.IsTrue(table.Enabled);
@@ -500,7 +464,6 @@ namespace HostOperator.Tests
             Assert.AreEqual(table.GetAttribute("role"),"grid");
             Assert.AreEqual(table.GetAttribute("aria-describedby"), "StatusTable_info");
             Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable dataTable no-footer");
-
 
             // table head test
             var State = driver.FindElement

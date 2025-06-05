@@ -4,12 +4,12 @@ using OpenQA.Selenium.Support.UI;
 
 namespace HostOperator.Tests
 {
-    public class HostOperatorFacilityAdminMaintFacilitiesTests : IDisposable
+    public class HostOperatorFacilityPassengerPlatformsTests : IDisposable
     {
         private IWebDriver driver;
         public void Dispose()
         {
-           driver.Dispose();
+          driver.Dispose();
         }
 
         [TearDown]
@@ -17,7 +17,7 @@ namespace HostOperator.Tests
         {
             if (driver != null)
             {
-               driver.Quit();
+              driver.Quit();
             }
         }
 
@@ -42,7 +42,7 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilitiesPage_ReportsOptionTest()
+        public void PassengerPlatformPage_ReportsOptionTest()
         {
             var reportOption = driver.FindElement
                 (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
@@ -75,7 +75,7 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilitiesPage_FacilityOptionTest()
+        public void PassengerPlatformPage_FacilityOptionTest()
         {
             // to click on report option 
             var reportOption = driver.FindElement
@@ -113,51 +113,51 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilitiesPage_AdminMaintFacilitiesOptionTest()
+        public void PassengerPlatformPage_PassengerFacilitiesOptionTest()
         {
             var reportOption = driver.FindElement
-                 (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
             reportOption.Click();
 
             var facilityOption = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a"));
+              (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/a"));
             facilityOption.Click();
 
-            var adminMaintFacilitiesOption = driver.FindElement
-               (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[2]/a"));
-            Assert.IsTrue(adminMaintFacilitiesOption.Enabled);
-            Assert.IsTrue(adminMaintFacilitiesOption.Displayed);
-            Assert.AreEqual(adminMaintFacilitiesOption.Text, "Admin/Maint Facilities");
-            Assert.AreEqual(adminMaintFacilitiesOption.GetAttribute("target"), "_self");
-            Assert.AreEqual(adminMaintFacilitiesOption.GetAttribute("custom-data"), "Admin/Maint Facilities");
-            Assert.AreEqual(adminMaintFacilitiesOption.GetAttribute("class"), "side-menu-links m-menu__link");
-            Assert.AreEqual(adminMaintFacilitiesOption.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/Facilities");
+            var passengerPlatformOption = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[5]/a"));
+            Assert.IsTrue(passengerPlatformOption.Enabled);
+            Assert.IsTrue(passengerPlatformOption.Displayed);
+            Assert.AreEqual(passengerPlatformOption.GetAttribute("role"), "menuitem");
+            Assert.AreEqual(passengerPlatformOption.GetAttribute("custom-data"), "Passenger Platforms");
+            Assert.AreEqual(passengerPlatformOption.GetAttribute("class"), "side-menu-links m-menu__link");
+            Assert.AreEqual(passengerPlatformOption.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/PassengerPlatforms");
 
-            var adminMaintFacilitiesOptionIcon = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[2]/a/i"));
-            Assert.IsTrue(adminMaintFacilitiesOptionIcon.Enabled);
-            Assert.IsTrue(adminMaintFacilitiesOptionIcon.Displayed);
-            Assert.AreEqual(adminMaintFacilitiesOptionIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
+            var passengerPlatformIcon = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[5]/a/i"));
+            Assert.IsTrue(passengerPlatformIcon.Enabled);
+            Assert.IsTrue(passengerPlatformIcon.Displayed);
+            Assert.AreEqual(passengerPlatformIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
 
-            var adminMaintFacilitiesOptionText = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[2]/a/span/span"));
-            Assert.IsTrue(adminMaintFacilitiesOptionText.Enabled);
-            Assert.IsTrue(adminMaintFacilitiesOptionText.Displayed);
-            Assert.AreEqual(adminMaintFacilitiesOptionText.Text, "Admin/Maint Facilities");
-            Assert.AreEqual(adminMaintFacilitiesOptionText.GetAttribute("class"), "title");
+            var passengerPlatformText = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[4]/nav/ul/li[5]/a/span/span"));
+            Assert.IsTrue(passengerPlatformText.Enabled);
+            Assert.IsTrue(passengerPlatformText.Displayed);
+            Assert.AreEqual(passengerPlatformText.Text, "Passenger Platforms");
+            Assert.AreEqual(passengerPlatformText.GetAttribute("class"), "title");
+        }
+
+        // to open page
+        [Test]
+        public void PassengerPlatformPage_OpenPage()
+        {
+            driver.Navigate().GoToUrl("http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/PassengerPlatforms");
         }
 
         [Test]
-        public void AdminMaintFacilityPage_OpenPage()
+        public void PassengerPlatformPage_TopUserNameTest()
         {
-            driver.Navigate().GoToUrl("http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/Facilities");
-        }
-
-        [Test]
-        public void AdminMaintFacilityPage_TopUserNameTest()
-        {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var HiUserName = driver.FindElement
                 (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/a/span[1]"));
@@ -173,10 +173,10 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilityPage_LogoutBtnTest()
+        public void PassengerPlatformPage_LogoutBtnTest()
         {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var hiHostOperator = driver.FindElement
                 (By.ClassName("m-topbar__username"));
@@ -193,10 +193,10 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilityPage_NotificationIconTest()
+        public void PassengerPlatformPage_NotificationIconTest()
         {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var notificationBtn = driver.FindElement
                 (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[1]/a"));
@@ -218,52 +218,39 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilityPage_SubHeaderTitleTest()
+        public void PassengerPlatformPage_SubHeaderTitleTest()
         {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var subTite = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/h1"));
 
             Assert.IsTrue(subTite.Enabled);
             Assert.IsTrue(subTite.Displayed);
-            Assert.AreEqual(subTite.Text, "Facilities");
+            Assert.AreEqual(subTite.Text, "Passenger Platforms");
             Assert.AreEqual(subTite.GetAttribute("class"), "m-subheader__title m-subheader__title--separator");
         }
 
         [Test]
-        public void AdminMaintFacilityPage_ReportsNavigationLinkTest()
+        public void PassengerPlatformsPage_ReportNaviationLinkTest()
         {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var reportsNavLink = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[1]/a"));
             Assert.IsTrue(reportsNavLink.Enabled);
             Assert.IsTrue(reportsNavLink.Displayed);
             Assert.AreEqual(reportsNavLink.Text, "Reports");
-            Assert.AreEqual(reportsNavLink.GetAttribute("class"), "m-nav__link");
+            Assert.AreEqual(reportsNavLink.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/");
         }
 
         [Test]
-        public void AdminMaintFacilityPage_Seperator1Test()
-        { 
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
-
-            var Seperator = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[2]"));
-            Assert.IsTrue(Seperator.Enabled);
-            Assert.IsTrue(Seperator.Displayed);
-            Assert.AreEqual(Seperator.Text, ">");
-            Assert.AreEqual(Seperator.GetAttribute("class"), "m-nav__separator");
-        }
-
-        [Test]
-        public void AdminMaintFacilityPage_FacilityNavigationLinkTest()
+        public void PassengerPlatformsPage_FacilityNavigationLinkTest()
         {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var facilityNavLink = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[3]/a"));
@@ -271,90 +258,69 @@ namespace HostOperator.Tests
             Assert.IsTrue(facilityNavLink.Displayed);
             Assert.AreEqual(facilityNavLink.Text, "Facility");
             Assert.AreEqual(facilityNavLink.GetAttribute("class"), "m-nav__link");
-
-            var UrlBeforeClick = driver.Url;
-            facilityNavLink.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreEqual(UrlBeforeClick, UrlAfterClick);
         }
 
+        // this button also must opne same page
         [Test]
-        public void AdminMaintFacilityPage_Seperator2Test()
+        public void PassengerPlatformsPage_PassengerPlatformsNavigationLinkTest()
         {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
-            var Seperator = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[4]"));
-            Assert.IsTrue(Seperator.Enabled);
-            Assert.IsTrue(Seperator.Displayed);
-            Assert.AreEqual(Seperator.Text, ">");
-            Assert.AreEqual(Seperator.GetAttribute("class"), "m-nav__separator");
-        }
-
-        [Test]
-        public void AdminMaintFacilityPage_FacilitiesNavigationLinkTest()
-        {
-            // to open admin maint Faclilities page
-            AdminMaintFacilityPage_OpenPage();
-
-            var facilitiesNavLink = driver.FindElement
+            var passengerPlatformsNavLink = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[5]/a"));
-            Assert.IsTrue(facilitiesNavLink.Enabled);
-            Assert.IsTrue(facilitiesNavLink.Displayed);
-            Assert.AreEqual(facilitiesNavLink.Text, "Facilities");
-            Assert.AreEqual(facilitiesNavLink.GetAttribute("class"), "m-nav__link");
-
-            var UrlBeforeClick = driver.Url;
-            facilitiesNavLink.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreEqual(UrlBeforeClick, UrlAfterClick);
+            Assert.IsTrue(passengerPlatformsNavLink.Enabled);
+            Assert.IsTrue(passengerPlatformsNavLink.Displayed);
+            Assert.AreEqual(passengerPlatformsNavLink.Text, "Passenger Platforms");
+            Assert.AreEqual(passengerPlatformsNavLink.GetAttribute("class"), "m-nav__link");
         }
 
         [Test]
-        public void AdminMaintFacilitesPage_DataTableLengthTest()
+        public void PassengerPlatformsPage_DataTableLengthTest()
         {
-            // to open admin maint Facilites page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
-            var lengthLabel = driver.FindElement(By.XPath("//*[@id=\"facilities_length\"]/label"));
+            var lengthLabel = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms_length\"]/label"));
             Assert.IsTrue(lengthLabel.Enabled);
             Assert.IsTrue(lengthLabel.Displayed);
             Assert.IsTrue(lengthLabel.Text.Contains("Show"));
 
-            var lengthValue = driver.FindElement(By.Name("facilities_length"));
+            var lengthValue = driver.FindElement(By.Name("passengerPlatforms_length"));
             Assert.IsTrue(lengthValue.Enabled);
             Assert.IsTrue(lengthValue.Displayed);
-            Assert.AreEqual(lengthValue.GetAttribute("aria-controls"), "facilities");
+            Assert.AreEqual(lengthValue.GetAttribute("aria-controls"), "passengerPlatforms");
 
             var selectedLengthValue = new SelectElement(lengthValue);
             selectedLengthValue.SelectByIndex(1);
         }
 
         [Test]
-        public void AdminMaintFacilitesPage_DataTableFilterTest()
+        public void PassengerPlatformsPage_DataTableFilterTest()
         {
-            // to open admin maint facilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var tableFilterLabel = driver.FindElement
-                (By.Id("facilities_filter"));
+                (By.Id("passengerPlatforms_filter"));
             Assert.IsTrue(tableFilterLabel.Enabled);
             Assert.IsTrue(tableFilterLabel.Displayed);
+            Assert.AreEqual(tableFilterLabel.Text, "Search:");
 
             var tableFilterInput = driver.FindElement
-                (By.XPath("//*[@id=\"facilities_filter\"]/label/input"));
+                (By.XPath("//*[@id=\"passengerPlatforms_filter\"]/label/input"));
             tableFilterInput.SendKeys("Code");
             Assert.IsTrue(tableFilterInput.Enabled);
             Assert.IsTrue(tableFilterInput.Displayed);
             Assert.AreEqual(tableFilterInput.GetAttribute("type"),"search");
-            Assert.AreEqual(tableFilterInput.GetAttribute("aria-controls"), "facilities");
+            Assert.AreEqual(tableFilterInput.GetAttribute("aria-controls"), "passengerPlatforms");
         }
 
         [Test]
-        public void AdminMainntFacilitesPage_AssetClassParagraphTest()
+        public void PassengerPlatformsPage_AssetClassDropdownListTest()
         {
-            // to open admin maint facilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var assetClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/div/label"));
@@ -372,10 +338,10 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilitesPage_AssetSubClassParagraphTest()
+        public void PassengerPlatformsPage_AssetSubClassParagraphTest()
         {
-            // to open admin maint Facilites page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var assetSubClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div/label"));
@@ -389,180 +355,162 @@ namespace HostOperator.Tests
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div/b"));
             Assert.IsTrue(assetSubClassValue.Enabled);
             Assert.IsTrue(assetSubClassValue.Displayed);
-            Assert.AreEqual(assetSubClassValue.Text, "Administrative/Maintenance Facilities");
+            Assert.AreEqual(assetSubClassValue.Text, "Passenger Facilities");
         }
-        
-        // this pice contains error in asset type label
-        // it should be Asset Type not Asset Class
+
+        // this pice contains error in asset type label it must be linked with asset type label 
+        // but it link with asset subclass
         [Test]
-        public void AdminMaintFacilitiesPage_AssetTypeParagraphTest()
+        public void PassengerPlatformsPage_AssetTypeParagraphTest()
         {
-            // to open admin maint Facilites page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var assetTypeLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[3]/div/div/label"));
             Assert.IsTrue(assetTypeLabel.Enabled);
             Assert.IsTrue(assetTypeLabel.Displayed);
             Assert.AreEqual(assetTypeLabel.Text, "Asset Type");
-            Assert.AreEqual(assetTypeLabel.GetAttribute("for"),"AssetType");
+            Assert.AreEqual(assetTypeLabel.GetAttribute("form"),"AssetType");
             Assert.AreEqual(assetTypeLabel.GetAttribute("class"),"form-label");
 
             var assetTypeParagraph = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[3]/div/div/b"));
             Assert.IsTrue(assetTypeParagraph.Enabled);
             Assert.IsTrue(assetTypeParagraph.Displayed);
-            Assert.AreEqual(assetTypeParagraph.Text, "Administrative/Maintenance Facility");
+            Assert.AreEqual(assetTypeParagraph.Text, "Rail Platform");
         }
 
         [Test]
-        public void AdminMaintFacilitesPage_AdminMaintFacilitiesTableTest()
+        public void PassengerPlatformsPage_PassengerPlatformsTableTest()
         {
-            // to open admin maint Facilites page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
-            var table = driver.FindElement(By.Id("facilities"));
+            var table = driver.FindElement(By.Id("passengerPlatforms"));
             Assert.IsTrue(table.Enabled);
             Assert.IsTrue(table.Displayed);
             Assert.AreEqual(table.GetAttribute("role"),"grid");
-            Assert.AreEqual(table.GetAttribute("aria-describedby"), "facilities_info");
+            Assert.AreEqual(table.GetAttribute("aria-describedby"), "passengerPlatforms_info");
             Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable dataTable no-footer");
 
-            var columns = driver.FindElements(By.Id("facilities"));
+            var columns = driver.FindElements(By.ClassName("sorting"));
             foreach(var column in columns)
             {
-                Assert.IsTrue(column.Displayed);
                 Assert.IsTrue(column.Enabled);
+                Assert.IsTrue(column.Displayed);
             }
-            
-            var RowNo = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[1]"));
-            Assert.IsTrue(RowNo.Enabled);
-            Assert.IsTrue(RowNo.Displayed);
-            Assert.AreEqual(RowNo.Text, "Row No");
-            Assert.AreEqual(RowNo.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(RowNo.GetAttribute("aria-sort"), "ascending");
-            Assert.AreEqual(RowNo.GetAttribute("aria-label"), "Row No: activate to sort column descending");
-            //RowNo.Click();
 
-            var FacilityId = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[2]"));
-            Assert.IsTrue(FacilityId.Enabled);
-            Assert.IsTrue(FacilityId.Displayed);
-            Assert.AreEqual(FacilityId.Text, "Facility Id");
-            Assert.AreEqual(FacilityId.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(FacilityId.GetAttribute("aria-label"), "Facility Id: activate to sort column ascending");
-            //FacilityId.Click();
+            var rowNo = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[1]"));
+            rowNo.Click();
+            Assert.IsTrue(rowNo.Enabled);
+            Assert.IsTrue(rowNo.Displayed);
+            Assert.AreEqual(rowNo.Text, "Row No");
+            Assert.AreEqual(rowNo.GetAttribute("class"), "sorting_asc");
+            Assert.AreEqual(rowNo.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(rowNo.GetAttribute("aria-label"), "Row No: activate to sort column descending");
 
-            var FacilityName = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[3]"));
-            Assert.IsTrue(FacilityName.Enabled);
-            Assert.IsTrue(FacilityName.Displayed);
-            Assert.AreEqual(FacilityName.Text, "Facility Name");
-            Assert.AreEqual(FacilityName.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(FacilityName.GetAttribute("aria-label"), "Facility Name: activate to sort column ascending");
-            //FacilityName.Click();
+            var PlatformDesc = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[2]"));
+            PlatformDesc.Click();
+            Assert.IsTrue(PlatformDesc.Enabled);
+            Assert.IsTrue(PlatformDesc.Displayed);
+            Assert.AreEqual(PlatformDesc.Text, "Platform Desc");
+            Assert.AreEqual(PlatformDesc.GetAttribute("class"), "sorting");
+            Assert.AreEqual(PlatformDesc.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(PlatformDesc.GetAttribute("aria-label"), "Platform Desc: activate to sort column ascending");
 
-            var Type = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[4]"));
-            Assert.IsTrue(Type.Enabled);
-            Assert.IsTrue(Type.Displayed);
-            Assert.AreEqual(Type.Text, "Type");
-            Assert.AreEqual(Type.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(Type.GetAttribute("aria-label"), "Type: activate to sort column ascending");
-            //Type.Click();
-
-            var StreetAddress = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[5]"));
-            Assert.IsTrue(StreetAddress.Enabled);
-            Assert.IsTrue(StreetAddress.Displayed);
-            Assert.AreEqual(StreetAddress.Text, "Street Address");
-            Assert.AreEqual(StreetAddress.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(StreetAddress.GetAttribute("aria-label"), "Street Address: activate to sort column ascending");
-            //StreetAddress.Click();
-
-
-            var City = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[6]"));
-            Assert.IsTrue(City.Enabled);
-            Assert.IsTrue(City.Displayed);
-            Assert.AreEqual(City.Text, "City");
-            Assert.AreEqual(City.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(City.GetAttribute("aria-label"), "City: activate to sort column ascending");
-            //StreetAddress.Click();
-
-
-            var State = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[7]"));
-            Assert.IsTrue(State.Enabled);
-            Assert.IsTrue(State.Displayed);
-            Assert.AreEqual(State.Text, "State");
-            Assert.AreEqual(State.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(State.GetAttribute("aria-label"), "State: activate to sort column ascending");
-            //State.Click();
-
-            var Zip = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[8]"));
-            Assert.IsTrue(Zip.Enabled);
-            Assert.IsTrue(Zip.Displayed);
-            Assert.AreEqual(Zip.Text, "Zip");
-            Assert.AreEqual(Zip.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(Zip.GetAttribute("aria-label"), "Zip: activate to sort column ascending");
-            //Zip.Click();
-
-            var YearBuiltOrReconstructed = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[9]"));
-            Assert.IsTrue(YearBuiltOrReconstructed.Enabled);
-            Assert.IsTrue(YearBuiltOrReconstructed.Displayed);
-            Assert.AreEqual(YearBuiltOrReconstructed.Text, "Year Built Or Reconstructed");
-            Assert.AreEqual(YearBuiltOrReconstructed.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(YearBuiltOrReconstructed.GetAttribute("aria-label"), "Year Built Or Reconstructed: activate to sort column ascending");
-            //YearBuiltOrReconstructed.Click();
-
-            var FacilityArea = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[10]"));
-            Assert.IsTrue(FacilityArea.Enabled);
-            Assert.IsTrue(FacilityArea.Displayed);
-            Assert.AreEqual(FacilityArea.Text, "Facility Area");
-            Assert.AreEqual(FacilityArea.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(FacilityArea.GetAttribute("aria-label"), "Facility Area: activate to sort column ascending");
-            //FacilityArea.Click();
-
-            var OverallCondition = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[11]"));
-            Assert.IsTrue(OverallCondition.Enabled);
-            Assert.IsTrue(OverallCondition.Displayed);
-            Assert.AreEqual(OverallCondition.Text, "Overall Condition");
-            Assert.AreEqual(OverallCondition.GetAttribute("aria-controls"), "facilities");
-            Assert.AreEqual(OverallCondition.GetAttribute("aria-label"), "Overall Condition: activate to sort column ascending");
-            //OverallCondition.Click();
-
-            var ConditionAssessmentDate = driver.FindElement(By.XPath("//*[@id=\"facilities\"]/thead/tr/th[12]"));
+            var ConditionAssessmentDate = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[3]"));
+            ConditionAssessmentDate.Click();
             Assert.IsTrue(ConditionAssessmentDate.Enabled);
             Assert.IsTrue(ConditionAssessmentDate.Displayed);
             Assert.AreEqual(ConditionAssessmentDate.Text, "Condition Assessment Date");
-            Assert.AreEqual(ConditionAssessmentDate.GetAttribute("aria-controls"), "facilities");
+            Assert.AreEqual(ConditionAssessmentDate.GetAttribute("class"), "sorting");
+            Assert.AreEqual(ConditionAssessmentDate.GetAttribute("aria-controls"), "passengerPlatforms");
             Assert.AreEqual(ConditionAssessmentDate.GetAttribute("aria-label"), "Condition Assessment Date: activate to sort column ascending");
-            //ConditionAssessmentDate.Click();
+
+            var StructureRating = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[4]"));
+            StructureRating.Click();
+            Assert.IsTrue(StructureRating.Enabled);
+            Assert.IsTrue(StructureRating.Displayed);
+            Assert.AreEqual(StructureRating.Text, "Structure Rating");
+            Assert.AreEqual(StructureRating.GetAttribute("class"), "sorting");
+            Assert.AreEqual(StructureRating.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(StructureRating.GetAttribute("aria-label"), "Structure Rating: activate to sort column ascending");
+
+            var CanopyRating = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[5]"));
+            CanopyRating.Click();
+            Assert.IsTrue(CanopyRating.Enabled);
+            Assert.IsTrue(CanopyRating.Displayed);
+            Assert.AreEqual(CanopyRating.Text, "Canopy Rating");
+            Assert.AreEqual(CanopyRating.GetAttribute("class"), "sorting");
+            Assert.AreEqual(CanopyRating.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(CanopyRating.GetAttribute("aria-label"), "Canopy Rating: activate to sort column ascending");
+
+            var ElectricalRating = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[6]"));
+            ElectricalRating.Click();
+            Assert.IsTrue(ElectricalRating.Enabled);
+            Assert.IsTrue(ElectricalRating.Displayed);
+            Assert.AreEqual(ElectricalRating.Text, "Electrical Rating");
+            Assert.AreEqual(ElectricalRating.GetAttribute("class"), "sorting");
+            Assert.AreEqual(ElectricalRating.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(ElectricalRating.GetAttribute("aria-label"), "Electrical Rating: activate to sort column ascending");
+
+            var StructureCost = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[7]"));
+            StructureCost.Click();
+            Assert.IsTrue(StructureCost.Enabled);
+            Assert.IsTrue(StructureCost.Displayed);
+            Assert.AreEqual(StructureCost.Text, "Structure Cost");
+            Assert.AreEqual(StructureCost.GetAttribute("class"), "sorting");
+            Assert.AreEqual(StructureCost.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(StructureCost.GetAttribute("aria-label"), "Structure Cost: activate to sort column ascending");
+
+            var CanopyCost = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[8]"));
+            CanopyCost.Click();
+            Assert.IsTrue(CanopyCost.Enabled);
+            Assert.IsTrue(CanopyCost.Displayed);
+            Assert.AreEqual(CanopyCost.Text, "Canopy Cost");
+            Assert.AreEqual(CanopyCost.GetAttribute("class"), "sorting");
+            Assert.AreEqual(CanopyCost.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(CanopyCost.GetAttribute("aria-label"), "Canopy Cost: activate to sort column ascending");
+
+            var ElectricalCost = driver.FindElement(By.XPath("//*[@id=\"passengerPlatforms\"]/thead/tr/th[9]"));
+            ElectricalCost.Click();
+            Assert.IsTrue(ElectricalCost.Enabled);
+            Assert.IsTrue(ElectricalCost.Displayed);
+            Assert.AreEqual(ElectricalCost.Text, "Electrical Cost");
+            Assert.AreEqual(ElectricalCost.GetAttribute("class"), "sorting");
+            Assert.AreEqual(ElectricalCost.GetAttribute("aria-controls"), "passengerPlatforms");
+            Assert.AreEqual(ElectricalCost.GetAttribute("aria-label"), "Electrical Cost: activate to sort column ascending");
         }
 
         [Test]
-        public void adminMaintFacilityPage_PaginateTest()
+        public void PassengerPlatformsPage_PaginateTest()
         {
-            // to open admin maint Facilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
-            var previousBtn = driver.FindElement(By.Id("facilities_previous"));
+            var previousBtn = driver.FindElement(By.Id("passengerPlatforms_previous"));
             Assert.IsTrue(previousBtn.Enabled);
             Assert.IsTrue(previousBtn.Displayed);
             Assert.AreEqual(previousBtn.Text, "Previous");
-            Assert.AreEqual(previousBtn.GetAttribute("aria-controls"), "facilities");
+            Assert.AreEqual(previousBtn.GetAttribute("aria-controls"), "passengerPlatforms");
             Assert.AreEqual(previousBtn.GetAttribute("class"), "paginate_button previous disabled");
             previousBtn.Click();
 
-            var nextBtn = driver.FindElement(By.Id("facilities_next"));
+            var nextBtn = driver.FindElement(By.Id("passengerPlatforms_next"));
+            Assert.AreEqual(nextBtn.Text, "Next");
             Assert.IsTrue(nextBtn.Enabled);
             Assert.IsTrue(nextBtn.Displayed);
-            Assert.AreEqual(nextBtn.Text, "Next");
-            Assert.AreEqual(nextBtn.GetAttribute("aria-controls"), "facilities");
+            Assert.AreEqual(nextBtn.GetAttribute("aria-controls"), "passengerPlatforms");
             Assert.AreEqual(nextBtn.GetAttribute("class"), "paginate_button next disabled");
             nextBtn.Click();
         }
 
         [Test]
-        public void AdminMaintFacilitiesPage_ExportBtnTest()
+        public void PassengerPlatformssPage_ExportBtnTest()
         {
-            // to open admin maint Facilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var exportBtn = driver.FindElement(By.Id("ExportCSVLink"));
             Assert.IsTrue(exportBtn.Enabled);
@@ -573,10 +521,10 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilitiesPage_SideLeftMinimizeToggle()
+        public void PassengerPlatformsPage_SideLeftMinimizeToggle()
         {
-            // to open admin maint Facilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var sideLeft = driver.FindElement(By.Id("m_aside_left_minimize_toggle"));
             Assert.AreEqual(sideLeft.GetAttribute("href"), "javascript:;");
@@ -586,12 +534,12 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilityPage_DataTableInfoTest()
+        public void PassengerPlatformPage_DataTableInfoTest()
         {
-            // to open admin maint Facilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
-            var tableInfo = driver.FindElement(By.Id("facilities_info"));
+            var tableInfo = driver.FindElement(By.Id("passengerPlatforms_info"));
             Assert.IsTrue(tableInfo.Enabled);
             Assert.IsTrue(tableInfo.Displayed);
             Assert.AreEqual(tableInfo.GetAttribute("role"), "status");
@@ -601,10 +549,10 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintFacilityPage_CopyRightTest()
+        public void PassengerPlatformPage_CopyRightTest()
         {
-            // to open admin maint Facilities page
-            AdminMaintFacilityPage_OpenPage();
+            // to open passenger Platforms page
+            PassengerPlatformPage_OpenPage();
 
             var copyRight = driver.FindElement
                 (By.XPath("/html/body/footer/div/div/div[1]/span"));

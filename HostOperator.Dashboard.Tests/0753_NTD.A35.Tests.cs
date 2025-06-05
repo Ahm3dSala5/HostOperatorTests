@@ -1,6 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using System.Xml.Serialization;
+using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi.Modules.Script;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V130.Network;
 using OpenQA.Selenium.Support.UI;
 
 namespace HostOperator.Tests
@@ -18,7 +20,7 @@ namespace HostOperator.Tests
         {
             if (driver != null)
             {
-               driver.Quit();
+              driver.Quit();
             }
         }
 
@@ -43,192 +45,242 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void A35Page_TestReportOption()
+        public void A30Page_ReportsOptionTest()
         {
             var reportOption = driver.FindElement
                 (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
-            Assert.AreEqual(reportOption.Text, "Reports");
-            Assert.AreEqual(reportOption.GetAttribute("custom-data"), "Reports");
-            Assert.IsTrue(reportOption.Displayed);
+
             Assert.IsTrue(reportOption.Enabled);
-            var URLBeforeClick = driver.Url;
-            reportOption.Click();
-            var URLAfterClick = driver.Url;
-            Assert.AreEqual(URLBeforeClick, $"{URLAfterClick}");
-            Assert.AreEqual(reportOption.GetAttribute("href"), $"{URLAfterClick}#");
+            Assert.IsTrue(reportOption.Displayed);
+            Assert.AreEqual(reportOption.Text, "Reports");
+            Assert.AreEqual(reportOption.GetAttribute("role"), "menuitem");
+            Assert.AreEqual(reportOption.GetAttribute("href"), $"{driver.Url}#");
+            Assert.AreEqual(reportOption.GetAttribute("custom-data"), "Reports");
+            Assert.AreEqual(reportOption.GetAttribute("class"), "side-menu-links m-menu__link m-menu__toggle");
+
+            var reportsOptionIcon = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a/i[1]"));
+            Assert.IsTrue(reportsOptionIcon.Enabled);
+            Assert.IsTrue(reportsOptionIcon.Displayed);
+            Assert.AreEqual(reportsOptionIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
+
+            var reportsOptionArrow = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a/i[2]"));
+            Assert.IsTrue(reportsOptionArrow.Enabled);
+            Assert.IsTrue(reportsOptionArrow.Displayed);
+            Assert.AreEqual(reportsOptionArrow.GetAttribute("class"), "m-menu__ver-arrow la la-angle-right");
+
+            var reportsOptionText = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a/span/span"));
+            Assert.IsTrue(reportsOptionText.Enabled);
+            Assert.IsTrue(reportsOptionText.Displayed);
+            Assert.AreEqual(reportsOptionText.Text, "Reports");
+            Assert.AreEqual(reportsOptionText.GetAttribute("class"), "title");
         }
 
         [Test]
-        public void A35Page_TestNTDOption()
-        {
-            // to click on report option 
-            A35Page_TestReportOption();
-
-            var NTDOption = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a"));
-            Assert.AreEqual(NTDOption.GetAttribute("custom-data"), "NTD");
-            var currentUrl = driver.Url;
-            Assert.AreEqual(NTDOption.GetAttribute("href"), $"{currentUrl}#");
-            Assert.IsTrue(NTDOption.Displayed);
-            Assert.IsTrue(NTDOption.Enabled);
-            NTDOption.Click();
-        }
-
-        [Test]
-        public void A35Page_TestA30Btn()
-        {
-            // to click on report option 
-            A35Page_TestReportOption();
-            // to click on NTD option
-            var NTDOption = driver.FindElement
-              (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a"));
-            NTDOption.Click();
-
-            var A35Option = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/nav/ul/li[3]/a"));
-            Assert.AreEqual(A35Option.GetAttribute("custom-data"), "A-35");
-            var A35URl = "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/A35Details";
-            Assert.AreEqual(A35Option.GetAttribute("href"), $"{A35URl}");
-            Assert.AreEqual(A35Option.GetAttribute("target"), "_self");
-            Assert.IsTrue(A35Option.Enabled);
-            A35Option.Click();
-        }
-
-        // to open page
-        [Test]
-        public void A35Page_OpenPage()
+        public void A30Page_NTDOptionTest()
         {
             var reportOption = driver.FindElement
               (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
             reportOption.Click();
 
             var NTDOption = driver.FindElement
-             (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a"));
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a"));
+            Assert.IsTrue(NTDOption.Enabled);
+            Assert.IsTrue(NTDOption.Displayed);
+            Assert.AreEqual(NTDOption.Text, "NTD");
+            Assert.AreEqual(NTDOption.GetAttribute("role"), "menuitem");
+            Assert.AreEqual(NTDOption.GetAttribute("custom-data"), "NTD");
+            Assert.AreEqual(NTDOption.GetAttribute("href"), $"{driver.Url}#");
+            Assert.AreEqual(NTDOption.GetAttribute("class"), "side-menu-links m-menu__link m-menu__toggle");
+
+            var NTDOptionIcon = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a/i[1]"));
+            Assert.IsTrue(NTDOptionIcon.Enabled);
+            Assert.IsTrue(NTDOptionIcon.Displayed);
+            Assert.AreEqual(NTDOptionIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
+
+            var NTDOptionArrwo = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a/i[2]"));
+            Assert.IsTrue(NTDOptionArrwo.Enabled);
+            Assert.IsTrue(NTDOptionArrwo.Displayed);
+            Assert.AreEqual(NTDOptionArrwo.GetAttribute("class"), "m-menu__ver-arrow la la-angle-right");
+
+            var NTDOptionText = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a/span/span"));
+            Assert.IsTrue(NTDOptionText.Enabled);
+            Assert.IsTrue(NTDOptionText.Displayed);
+            Assert.AreEqual(NTDOptionText.Text, "NTD");
+            Assert.AreEqual(NTDOptionText.GetAttribute("class"), "title");
+        }
+
+        [Test]
+        public void A35Page_A35OptionTest()
+        {
+            var reportOption = driver.FindElement
+             (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
+            reportOption.Click();
+
+            var NTDOption = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a"));
             NTDOption.Click();
 
-            var A35Option = driver.FindElement
+            var a35Option = driver.FindElement
                 (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/nav/ul/li[3]/a"));
-            A35Option.Click();
+            Assert.IsTrue(a35Option.Enabled);
+            Assert.IsTrue(a35Option.Displayed);
+            Assert.AreEqual(a35Option.Text, "A-35");
+            Assert.AreEqual(a35Option.GetAttribute("target"), "_self");
+            Assert.AreEqual(a35Option.GetAttribute("role"),"menuitem");
+            Assert.AreEqual(a35Option.GetAttribute("custom-data"), "A-35");
+            Assert.AreEqual(a35Option.GetAttribute("class"), "side-menu-links m-menu__link");
+            Assert.AreEqual(a35Option.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/A35Details");
+
+            var a35OptionIcon = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/nav/ul/li[3]/a/i"));
+            Assert.IsTrue(a35OptionIcon.Enabled);
+            Assert.IsTrue(a35OptionIcon.Displayed);
+            Assert.AreEqual(a35OptionIcon.GetAttribute("class"), "m-menu__link-icon flaticon-cogwheel");
+
+            var a35OptionText = driver.FindElement
+                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/nav/ul/li[3]/a/span/span"));
+            Assert.IsTrue(a35OptionText.Enabled);
+            Assert.IsTrue(a35OptionText.Displayed);
+            Assert.AreEqual(a35OptionText.Text,"A-35");
+            Assert.AreEqual(a35OptionText.GetAttribute("class"),"title");
+        }
+
+        // to open page
+        [Test]
+        public void A35Page_OpenPage()
+        {
+            driver.Navigate().GoToUrl("http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Report/A35Details");
         }
 
         [Test]
-        public void A30Page_TableBarTest()
+        public void A35Pag_TopUserNameTest()
         {
-            // to open A30 page
+            // to open A35 page
             A35Page_OpenPage();
 
-            var hiHostOperator = driver.FindElement
+            var HiUserName = driver.FindElement
                 (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/a/span[1]"));
-            Assert.AreEqual(hiHostOperator.Text, "HI,");
-            Assert.True(hiHostOperator.Displayed);
-            Assert.True(hiHostOperator.Enabled);
+            Assert.IsTrue(HiUserName.Enabled);
+            Assert.IsTrue(HiUserName.Displayed);
+            Assert.AreEqual(HiUserName.Text, "HI,");
+            Assert.AreEqual(HiUserName.GetAttribute("class"), "m-topbar__username");
 
             var username = driver.FindElement(By.Id("UserName"));
-            Assert.True(username.Displayed);
             Assert.True(username.Enabled);
+            Assert.True(username.Displayed);
+            Assert.AreEqual(username.GetAttribute("style"), "cursor: pointer; margin-bottom: -1.5rem;");
         }
 
         [Test]
-        public void A35Page_LogoutBtnTest()
+        public void A35Pag_LogoutBtnTest()
         {
             // to open A35 page
             A35Page_OpenPage();
 
             var hiHostOperator = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/a/span[1]"));
+                (By.ClassName("m-topbar__username"));
             hiHostOperator.Click();
 
             var logoutBtn = driver.FindElement
                 (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/div/div/div/div/ul/li[4]/a"));
+            Thread.Sleep(9000);
             Assert.IsTrue(logoutBtn.Enabled);
             Assert.IsTrue(logoutBtn.Displayed);
             Assert.AreEqual(logoutBtn.Text, "Logout");
-
-            var UrlBeforeClickOnLogout = driver.Url;
-            logoutBtn.Click();
-            var UrlAfterClickOnLogout = driver.Url;
-            Assert.AreNotEqual(UrlBeforeClickOnLogout, UrlAfterClickOnLogout);
+            Assert.AreEqual(logoutBtn.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/Account/Logout");
+            Assert.AreEqual(logoutBtn.GetAttribute("class"), "btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder");
         }
 
         [Test]
-        public void A35Page_NotificationTest()
+        public void A35Pag_NotificationIconTest()
         {
             // to open A35 page
             A35Page_OpenPage();
+
+            var notificationBtn = driver.FindElement
+                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[1]/a"));
+            Assert.IsTrue(notificationBtn.Enabled);
+            Assert.IsTrue(notificationBtn.Displayed);
+            Assert.AreEqual(notificationBtn.GetAttribute("class"), "m-nav__link m-dropdown__toggle");
+            Assert.AreEqual(notificationBtn.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Messages");
 
             var notificationIcon = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[1]/a"));
-            Assert.IsTrue(notificationIcon.Displayed);
+                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[1]/a/span[1]/i"));
             Assert.IsTrue(notificationIcon.Enabled);
-            Assert.AreEqual(notificationIcon.GetAttribute("href"),
-                "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Messages");
-            notificationIcon.Click();
+            Assert.IsTrue(notificationIcon.Displayed);
+            Assert.AreEqual(notificationIcon.GetAttribute("class"), "flaticon-bell");
+
+            var unReadMessage = driver.FindElement(By.Id("UnreadChatMessageCount"));
+            Assert.IsTrue(unReadMessage.Enabled);
+            Assert.IsTrue(unReadMessage.Displayed);
+            Assert.AreEqual(unReadMessage.GetAttribute("class"), "m-badge m-badge--danger");
         }
 
         [Test]
-        public void A35Page_TestPageTitle()
+        public void A35Page_SubHeaderTitleTest()
         {
             // to open A35 page
             A35Page_OpenPage();
 
-            var title = driver.FindElement
-                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/h1/span"));
-            Assert.AreEqual(title.Text, "A-35");
-            Assert.IsTrue(title.Displayed);
-            Assert.IsTrue(title.Enabled);
+            var subTite = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/h1"));
+
+            Assert.IsTrue(subTite.Enabled);
+            Assert.IsTrue(subTite.Displayed);
+            Assert.AreEqual(subTite.Text, "A-35");
+            Assert.AreEqual(subTite.GetAttribute("class"), "m-subheader__title m-subheader__title--separator");
         }
 
         [Test]
-        public void A35Page_ReportBtnTest()
+        public void A35Page_ReportsNavigationLink()
         {
             // to open A35 page
             A35Page_OpenPage();
 
-            var reportBtn = driver.FindElement
-                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[1]/a/span"));
-            Assert.AreEqual(reportBtn.Text, "Reports");
-            Assert.IsTrue(reportBtn.Displayed);
-            Assert.IsTrue(reportBtn.Enabled);
-            var UrlBeforeClick = driver.Url;
-            reportBtn.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreNotEqual(UrlBeforeClick, UrlAfterClick);
+            var reportsNavLink = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[1]/a"));
+            Assert.IsTrue(reportsNavLink.Enabled);
+            Assert.IsTrue(reportsNavLink.Displayed);
+            Assert.AreEqual(reportsNavLink.Text, "Reports");
+            Assert.AreEqual(reportsNavLink.GetAttribute("class"), "m-nav__link");
+            Assert.AreEqual(reportsNavLink.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/");
+
         }
 
         // must be enabled and when click must open same page
         [Test]
-        public void A35_NTDBtnTest()
+        public void A35_NTDNavigationLinkTest()
         {
             // to open A35 page
             A35Page_OpenPage();
 
-            var NTDBtn = driver.FindElement
-                  (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[3]/a/span"));
-            Assert.AreEqual(NTDBtn.Text, "NTD");
-            Assert.IsTrue(NTDBtn.Displayed);
-            Assert.IsTrue(NTDBtn.Enabled);
-            var UrlBeforeClick = driver.Url;
-            NTDBtn.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreEqual(UrlBeforeClick, UrlAfterClick);
+            var NTDNavLink = driver.FindElement
+                  (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[3]/a"));
+            Assert.IsTrue(NTDNavLink.Enabled);
+            Assert.IsTrue(NTDNavLink.Displayed);
+            Assert.AreEqual(NTDNavLink.Text, "NTD");
+            Assert.AreEqual(NTDNavLink.GetAttribute("class"), "m-nav__link");
         }
 
         // this button also must opne same page
         [Test]
-        public void A35Page_A35BtnTest()
+        public void A35Page_A35NavigationLinkTest()
         {
             // to open A30 page
             A35Page_OpenPage();
 
-            var A15Btn = driver.FindElement
-                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[5]/a/span"));
-            Assert.AreEqual(A15Btn.Text, "A-35");
-            Assert.IsTrue(A15Btn.Displayed);
-            Assert.IsTrue(A15Btn.Enabled);
-            var UrlBeforeClick = driver.Url;
-            A15Btn.Click();
-            var UrlAfterClick = driver.Url;
-            Assert.AreEqual(UrlBeforeClick, UrlAfterClick);
+            var A15NavLink = driver.FindElement
+                (By.XPath("/html/body/div[1]/div/div[2]/div[1]/div/div/ul/li[5]/a"));
+            Assert.IsTrue(A15NavLink.Enabled);
+            Assert.IsTrue(A15NavLink.Displayed);
+            Assert.AreEqual(A15NavLink.Text, "A-35");
+            Assert.AreEqual(A15NavLink.GetAttribute("class"), "m-nav__link");
         }
 
         [Test]
@@ -239,13 +291,16 @@ namespace HostOperator.Tests
 
             var lengthLabel = driver.FindElement(By.XPath("//*[@id=\"a35Details_length\"]/label"));
             Assert.IsTrue(lengthLabel.Enabled);
+            Assert.IsTrue(lengthLabel.Displayed);
             Assert.IsTrue(lengthLabel.Text.Contains("Show"));
 
             var lengthValue = driver.FindElement(By.Name("a35Details_length"));
+            Assert.IsTrue(lengthValue.Enabled);
+            Assert.IsTrue(lengthValue.Displayed);
+            Assert.AreEqual(lengthValue.GetAttribute("aria-controls"), "a35Details");
+
             var selectedLengthValue = new SelectElement(lengthValue);
             selectedLengthValue.SelectByIndex(1);
-            Assert.IsTrue(lengthValue.Displayed);
-            Assert.IsTrue(lengthValue.Enabled);
         }
 
         [Test]
@@ -256,27 +311,32 @@ namespace HostOperator.Tests
 
             var tableFilterLabel = driver.FindElement
                 (By.Id("a35Details_filter"));
+            Assert.IsTrue(tableFilterLabel.Enabled);
             Assert.IsTrue(tableFilterLabel.Displayed);
             Assert.AreEqual(tableFilterLabel.Text, "Search:");
 
             var tableFilterInput = driver.FindElement
-                (By.XPath("//*[@id=\"a35Details_filter\"]/label"));
+                (By.XPath("//*[@id=\"a35Details_filter\"]/label/input"));
             tableFilterInput.SendKeys("Code");
-            Assert.IsTrue(tableFilterInput.Displayed);
             Assert.IsTrue(tableFilterInput.Enabled);
+            Assert.IsTrue(tableFilterInput.Displayed);
+            Assert.AreEqual(tableFilterInput.GetAttribute("type"),"search");
+            Assert.AreEqual(tableFilterInput.GetAttribute("aria-controls"), "a35Details");
         }
 
         [Test]
-        public void A35Page_AssetClassParagraphTest()
+        public void A35Page_AssetClassDropdownlistTest()
         {
             // to open A35 page
             A35Page_OpenPage();
 
             var assetClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/div/label"));
-            Assert.AreEqual(assetClassLabel.Text, "Asset Class");
             Assert.IsTrue(assetClassLabel.Enabled);
             Assert.IsTrue(assetClassLabel.Displayed);
+            Assert.AreEqual(assetClassLabel.Text, "Asset Class");
+            Assert.AreEqual(assetClassLabel.GetAttribute("for"),"AssetClass");
+            Assert.AreEqual(assetClassLabel.GetAttribute("class"),"form-label");
 
             var assetClassInput = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/div/b"));
@@ -293,9 +353,11 @@ namespace HostOperator.Tests
 
             var assetSubClassLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div/label"));
-            Assert.AreEqual(assetSubClassLabel.Text, "Asset Subclass");
             Assert.IsTrue(assetSubClassLabel.Enabled);
             Assert.IsTrue(assetSubClassLabel.Displayed);
+            Assert.AreEqual(assetSubClassLabel.Text, "Asset Subclass");
+            Assert.AreEqual(assetSubClassLabel.GetAttribute("class"),"form-label");
+            Assert.AreEqual(assetSubClassLabel.GetAttribute("for"),"AssetSubClass");
 
             var assetSubClassValue = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div/b"));
@@ -312,40 +374,44 @@ namespace HostOperator.Tests
 
             var assetTypeLabel = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div[3]/div/div/label"));
-            Assert.AreEqual(assetTypeLabel.Text, "Asset Type");
             Assert.IsTrue(assetTypeLabel.Enabled);
             Assert.IsTrue(assetTypeLabel.Displayed);
+            Assert.AreEqual(assetTypeLabel.Text, "Asset Type");
+            Assert.AreEqual(assetTypeLabel.GetAttribute("for"),"AssetType");
+            Assert.AreEqual(assetTypeLabel.GetAttribute("class"),"form-label");
 
             var assetTypeValue = driver.FindElement
             (By.Id("AssetTypeDropDownChange"));
             Assert.IsTrue(assetTypeValue.Enabled);
             Assert.IsTrue(assetTypeValue.Displayed);
-            Assert.IsTrue(assetTypeValue.Enabled);
-            Assert.IsTrue(assetTypeValue.Displayed);
+            Assert.AreEqual(assetTypeValue.GetAttribute("class"),"form-controls");
+
             var selectedAssetSubClass = new SelectElement(assetTypeValue);
             selectedAssetSubClass.SelectByIndex(0);
+
+            var defaultOption = driver.FindElement
+                (By.XPath("//*[@id=\"AssetTypeDropDownChange\"]/option[1]"));
+            Assert.IsTrue(defaultOption.Enabled);
+            Assert.IsTrue(defaultOption.Displayed);
+            Assert.AreEqual(defaultOption.Text,"Select Asser Type");
         }
 
         [Test]
         public void A35Page_ReOrderTableTest()
         {
             // to open A35 page
-            ////////////////////////////////////
-            var reportOption = driver.FindElement
-              (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/a"));
-            reportOption.Click();
+            A35Page_OpenPage();
 
-            var NTDOption = driver.FindElement
-             (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/a"));
-            NTDOption.Click();
-
-            var A35Option = driver.FindElement
-                (By.XPath("//*[@id=\"m_ver_menu\"]/ul/li[7]/nav/ul/li[5]/nav/ul/li[3]/a"));
-            A35Option.Click();
-            ////////////////////////////////////
+            var table = driver.FindElement(By.Id("a35Details"));
+            Assert.IsNotNull(table);
+            Assert.IsTrue(table.Enabled);
+            Assert.IsTrue(table.Displayed);
+            Assert.AreEqual(table.GetAttribute("role"),"grid");
+            Assert.AreEqual(table.GetAttribute("aria-describedby"), "a35Details_info");
+            Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable dataTable no-footer");
 
 
-            var columns = driver.FindElements(By.Id("a35Details"));
+            var columns = driver.FindElements(By.ClassName("sorting"));
             foreach(var column in columns)
             {
                 Assert.IsTrue(column.Enabled);
@@ -353,8 +419,8 @@ namespace HostOperator.Tests
             }
 
             var RowNo = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[1]"));
-            Assert.IsTrue(RowNo.Displayed);
             Assert.IsTrue(RowNo.Enabled);
+            Assert.IsTrue(RowNo.Displayed);
             Assert.AreEqual(RowNo.Text, "Row No");
             Assert.AreEqual(RowNo.GetAttribute("aria-sort"), "ascending");
             Assert.AreEqual(RowNo.GetAttribute("aria-controls"), "a35Details");
@@ -362,112 +428,112 @@ namespace HostOperator.Tests
             //RowNo.Click();
 
             var NTDId = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[2]"));
-            Assert.IsTrue(NTDId.Displayed);
             Assert.IsTrue(NTDId.Enabled);
+            Assert.IsTrue(NTDId.Displayed);
             Assert.AreEqual(NTDId.Text, "NTD Id");
             Assert.AreEqual(NTDId.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(NTDId.GetAttribute("aria-label"), "NTD Id: activate to sort column ascending");
             //NTDId.Click();
 
             var FleetId = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[3]"));
-            Assert.IsTrue(FleetId.Displayed);
             Assert.IsTrue(FleetId.Enabled);
+            Assert.IsTrue(FleetId.Displayed);
             Assert.AreEqual(FleetId.Text, "Fleet Id");
             Assert.AreEqual(FleetId.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(FleetId.GetAttribute("aria-label"), "Fleet Id: activate to sort column ascending");
             //FleetId.Click(); 
 
             var FleetName = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[4]"));
-            Assert.IsTrue(FleetName.Displayed);
             Assert.IsTrue(FleetName.Enabled);
+            Assert.IsTrue(FleetName.Displayed);
             Assert.AreEqual(FleetName.Text, "Fleet Name");
             Assert.AreEqual(FleetName.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(FleetName.GetAttribute("aria-label"), "Fleet Name: activate to sort column ascending");
             //FleetName.Click(); 
 
             var VehicleType = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[5]"));
-            Assert.IsTrue(VehicleType.Displayed);
             Assert.IsTrue(VehicleType.Enabled);
+            Assert.IsTrue(VehicleType.Displayed);
             Assert.AreEqual(VehicleType.Text, "Vehicle Type");
             Assert.AreEqual(VehicleType.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(VehicleType.GetAttribute("aria-label"), "Vehicle Type: activate to sort column ascending");
             //VehicleType.Click(); 
 
             var PrimaryMode = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[6]"));
-            Assert.IsTrue(PrimaryMode.Displayed);
             Assert.IsTrue(VehicleType.Enabled);
+            Assert.IsTrue(PrimaryMode.Displayed);
             Assert.AreEqual(PrimaryMode.Text, "Primary Mode");
             Assert.AreEqual(PrimaryMode.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(PrimaryMode.GetAttribute("aria-label"), "Primary Mode: activate to sort column ascending");
             //PrimaryMode.Click(); 
 
             var YearManufactured = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[7]"));
-            Assert.IsTrue(YearManufactured.Displayed);
             Assert.IsTrue(YearManufactured.Enabled);
+            Assert.IsTrue(YearManufactured.Displayed);
             Assert.AreEqual(YearManufactured.Text, "Year Manufactured");
             Assert.AreEqual(YearManufactured.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(YearManufactured.GetAttribute("aria-label"), "Year Manufactured: activate to sort column ascending");
             //YearManufactured.Click(); 
 
             var EstimatedCost = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[8]"));
-            Assert.IsTrue(EstimatedCost.Displayed);
             Assert.IsTrue(EstimatedCost.Enabled);
+            Assert.IsTrue(EstimatedCost.Displayed);
             Assert.AreEqual(EstimatedCost.Text, "Estimated Cost");
             Assert.AreEqual(EstimatedCost.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(EstimatedCost.GetAttribute("aria-label"), "Estimated Cost: activate to sort column ascending");
             //EstimatedCost.Click(); 
 
             var UsefulLifeBenchmark = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[9]"));
-            Assert.IsTrue(UsefulLifeBenchmark.Displayed);
             Assert.IsTrue(UsefulLifeBenchmark.Enabled);
+            Assert.IsTrue(UsefulLifeBenchmark.Displayed);
             Assert.AreEqual(UsefulLifeBenchmark.Text, "Useful Life Benchmark");
             Assert.AreEqual(UsefulLifeBenchmark.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(UsefulLifeBenchmark.GetAttribute("aria-label"), "Useful Life Benchmark: activate to sort column ascending");
             //UsefulLifeBenchmark.Click(); 
 
             var UsefulLifeRemaining = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[10]"));
-            Assert.IsTrue(UsefulLifeRemaining.Displayed);
             Assert.IsTrue(UsefulLifeRemaining.Enabled);
+            Assert.IsTrue(UsefulLifeRemaining.Displayed);
             Assert.AreEqual(UsefulLifeRemaining.Text, "Useful Life Remaining");
             Assert.AreEqual(UsefulLifeRemaining.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(UsefulLifeRemaining.GetAttribute("aria-label"), "Useful Life Remaining: activate to sort column ascending");
             //UsefulLifeRemaining.Click(); 
 
             var TransitAgencyCapitalResponsibility = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[11]"));
-            Assert.IsTrue(TransitAgencyCapitalResponsibility.Displayed);
             Assert.IsTrue(TransitAgencyCapitalResponsibility.Enabled);
+            Assert.IsTrue(TransitAgencyCapitalResponsibility.Displayed);
             Assert.AreEqual(TransitAgencyCapitalResponsibility.Text, "Transit Agency Capital Responsibility");
             Assert.AreEqual(TransitAgencyCapitalResponsibility.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(TransitAgencyCapitalResponsibility.GetAttribute("aria-label"), "Transit Agency Capital Responsibility: activate to sort column ascending");
             //TransitAgencyCapitalResponsibility.Click(); 
 
             var YearDollarsEstimatedCost = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[12]"));
-            Assert.IsTrue(YearDollarsEstimatedCost.Displayed);
             Assert.IsTrue(YearDollarsEstimatedCost.Enabled);
+            Assert.IsTrue(YearDollarsEstimatedCost.Displayed);
             Assert.AreEqual(YearDollarsEstimatedCost.Text, "Year Dollars Estimated Cost");
             Assert.AreEqual(YearDollarsEstimatedCost.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(YearDollarsEstimatedCost.GetAttribute("aria-label"), "Year Dollars Estimated Cost: activate to sort column ascending");
             //YearDollarsEstimatedCost.Click(); 
 
             var SecondaryMode = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[13]"));
-            Assert.IsTrue(SecondaryMode.Displayed);
             Assert.IsTrue(SecondaryMode.Enabled);
+            Assert.IsTrue(SecondaryMode.Displayed);
             Assert.AreEqual(SecondaryMode.Text, "Secondary Mode");
             Assert.AreEqual(SecondaryMode.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(SecondaryMode.GetAttribute("aria-label"), "Secondary Mode: activate to sort column ascending");
             //SecondaryMode.Click(); 
 
             var Notes = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[14]"));
-            Assert.IsTrue(Notes.Displayed);
             Assert.IsTrue(Notes.Enabled);
+            Assert.IsTrue(Notes.Displayed);
             Assert.AreEqual(Notes.Text, "Notes");
             Assert.AreEqual(Notes.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(Notes.GetAttribute("aria-label"), "Notes: activate to sort column ascending");
             
             //Notes.Click(); 
             var Status = driver.FindElement(By.XPath("//*[@id=\"a35Details\"]/thead/tr/th[15]"));
-            Assert.IsTrue(Status.Displayed);
             Assert.IsTrue(Status.Enabled);
+            Assert.IsTrue(Status.Displayed);
             Assert.AreEqual(Status.Text, "Status");
             Assert.AreEqual(Status.GetAttribute("aria-controls"), "a35Details");
             Assert.AreEqual(Status.GetAttribute("aria-label"), "Status: activate to sort column ascending");
@@ -481,15 +547,19 @@ namespace HostOperator.Tests
             A35Page_OpenPage();
 
             var previousBtn = driver.FindElement(By.Id("a35Details_previous"));
-            Assert.AreEqual(previousBtn.Text, "Previous");
-            Assert.IsTrue(previousBtn.Displayed);
             Assert.IsTrue(previousBtn.Enabled);
+            Assert.IsTrue(previousBtn.Displayed);
+            Assert.AreEqual(previousBtn.Text, "Previous");
+            Assert.AreEqual(previousBtn.GetAttribute("aria-controls"), "a35Details");
+            Assert.AreEqual(previousBtn.GetAttribute("class"), "paginate_button previous disabled");
             previousBtn.Click();
 
             var nextBtn = driver.FindElement(By.Id("a35Details_next"));
+            Assert.IsTrue(nextBtn.Enabled);
+            Assert.IsTrue(nextBtn.Displayed);
             Assert.AreEqual(nextBtn.Text, "Next");
-            Assert.IsTrue(previousBtn.Displayed);
-            Assert.IsTrue(previousBtn.Enabled);
+            Assert.AreEqual(nextBtn.GetAttribute("aria-controls"), "a35Details");
+            Assert.AreEqual(nextBtn.GetAttribute("class"), "paginate_button next disabled");
             nextBtn.Click();
         }
 
@@ -500,9 +570,10 @@ namespace HostOperator.Tests
             A35Page_OpenPage();
 
             var exportBtn = driver.FindElement(By.Id("ExportCSVLink"));
-            Assert.AreEqual(exportBtn.Text, "Export CSV");
-            Assert.IsTrue(exportBtn.Displayed);
             Assert.IsTrue(exportBtn.Enabled);
+            Assert.IsTrue(exportBtn.Displayed);
+            Assert.AreEqual(exportBtn.Text, "Export CSV");
+            Assert.AreEqual(exportBtn.GetAttribute("class"), "btn btn-primary waves-effect mr-4");
             exportBtn.Click();
         }
 
@@ -513,10 +584,39 @@ namespace HostOperator.Tests
             A35Page_OpenPage();
 
             var sideLeft = driver.FindElement(By.Id("m_aside_left_minimize_toggle"));
-            Assert.AreEqual(sideLeft.GetAttribute("href"), "javascript:;");
             Assert.IsTrue(sideLeft.Enabled);
             Assert.IsTrue(sideLeft.Displayed);
+            Assert.AreEqual(sideLeft.GetAttribute("href"), "javascript:;");
             sideLeft.Click();
+        }
+
+        [Test]
+        public void A35Page_DataTableInfoTest()
+        {
+            // to open A35 page
+            A35Page_OpenPage();
+
+            var tableInfo = driver.FindElement(By.Id("a35Details_info"));
+            Assert.IsTrue(tableInfo.Enabled);
+            Assert.IsTrue(tableInfo.Displayed);
+            Assert.AreEqual(tableInfo.GetAttribute("role"), "status");
+            Assert.AreEqual(tableInfo.GetAttribute("aria-live"), "polite");
+            Assert.AreEqual(tableInfo.GetAttribute("class"), "dataTables_info");
+            Assert.IsTrue(tableInfo.Text.Contains("Showing") && tableInfo.Text.Contains("entries"));
+        }
+
+        [Test]
+        public void A35Page_CopyRightTest()
+        {
+            // to open A35 page
+            A35Page_OpenPage();
+
+            var copyRight = driver.FindElement
+                (By.XPath("/html/body/footer/div/div/div[1]/span"));
+            Assert.IsTrue(copyRight.Enabled);
+            Assert.IsTrue(copyRight.Displayed);
+            Assert.AreEqual(copyRight.Text, "2025 © CTDOT (Ver .)");
+            Assert.AreEqual(copyRight.GetAttribute("class"), "m-footer__copyright");
         }
     }
 }

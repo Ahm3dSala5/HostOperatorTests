@@ -424,7 +424,7 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AdminMaintBuildingsPage_ReOrderTableTest()
+        public void AdminMaintBuildingsPage_AdminMaintBuildingsTableTest()
         {
             // to open admin maint buildings page
             AdminMaintBuildinsPage_OpenPage();
@@ -436,7 +436,7 @@ namespace HostOperator.Tests
             Assert.AreEqual(table.GetAttribute("aria-describedby"), "buildings_info");
             Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable dataTable no-footer");
 
-            var columns = driver.FindElements(By.Id("buildings"));
+            var columns = driver.FindElements(By.ClassName("sorting"));
             foreach(var column in columns)
             {
                 Assert.IsTrue(column.Enabled);

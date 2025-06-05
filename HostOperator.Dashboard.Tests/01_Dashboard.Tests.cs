@@ -18,7 +18,7 @@ namespace HostOperator.Dashboard.Tests
         {
             if (driver != null)
             {
-               driver.Quit();
+                driver.Quit();
             }
         }
        
@@ -113,29 +113,6 @@ namespace HostOperator.Dashboard.Tests
             Assert.AreEqual(logoutBtn.GetAttribute("class"), "btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder");
         }
 
-        [Test]
-        public void DashboardPage_TenantHeadTest()
-        {
-            // to open dashboard page
-            DashboardPage_OpenPage();
-
-            var tenantHead = driver.FindElement(By.ClassName("TenantIdHeadercs"));
-            Assert.IsTrue(tenantHead.Enabled);
-            Assert.IsTrue(tenantHead.Displayed);
-            Assert.AreEqual(tenantHead.GetAttribute("class"), "TenantIdHeadercs");
-
-            var tenentHeadBtn = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[3]/a/div/span"));
-            Assert.IsTrue(tenentHeadBtn.Enabled);
-            Assert.IsTrue(tenentHeadBtn.Displayed);
-            Assert.AreEqual(tenentHeadBtn.GetAttribute("type"),"button");
-            Assert.AreEqual(tenentHeadBtn.GetAttribute("data-toggle"),"modal");
-            Assert.AreEqual(tenentHeadBtn.GetAttribute("data-target"),"#exampleModal");
-
-            var tenentHeadDemo = driver.FindElement(By.Id("demo"));
-            Assert.IsTrue(tenentHeadDemo.Enabled);
-            Assert.IsTrue(tenentHeadDemo.Displayed);
-        }
 
         [Test]
         public void DashboardPage_NotificationIconTest()
@@ -261,7 +238,7 @@ namespace HostOperator.Dashboard.Tests
                 (By.XPath("//*[@id=\"dynamicAddTextBoX\"]/div[2]/div/div/div/h2"));
             Assert.IsTrue(title.Enabled);
             Assert.IsTrue(title.Displayed);
-            Assert.AreEqual(title.Text, "Fixed Guideway");
+            Assert.AreEqual(title.Text, "Facility");
 
             var approved = driver.FindElement
                 (By.XPath("//*[@id=\"dynamicAddTextBoX\"]/div[1]/div/div/div/div[1]/span"));

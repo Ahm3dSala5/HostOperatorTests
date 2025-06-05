@@ -422,7 +422,7 @@ namespace HostOperator.Tests
             Assert.AreEqual(table.GetAttribute("aria-describedby"), "passengerFacilities_info");
             Assert.AreEqual(table.GetAttribute("class"), "table m-table table-hover table-checkable dataTable no-footer");
 
-            var columns = driver.FindElements(By.Id("passengerFacilities"));
+            var columns = driver.FindElements(By.ClassName("sorting"));
             foreach(var column in columns)
             {
                 Assert.IsTrue(column.Displayed);

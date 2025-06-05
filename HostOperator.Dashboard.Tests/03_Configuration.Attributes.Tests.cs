@@ -10,7 +10,7 @@ namespace HostOperator.Tests
 
         public void Dispose()
         {
-            //driver.Dispose();
+            driver.Dispose();
         }
 
         [TearDown]
@@ -18,7 +18,7 @@ namespace HostOperator.Tests
         {
             if (driver != null)
             {
-             //  driver.Quit();
+                driver.Quit();
             }
         }
 

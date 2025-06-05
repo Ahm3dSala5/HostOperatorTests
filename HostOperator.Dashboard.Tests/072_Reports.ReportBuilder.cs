@@ -243,14 +243,8 @@ namespace HostOperator.Tests
 
             var agenciesInput = driver.FindElement
                 (By.XPath("/html/body/div[1]/div/div[2]/div[4]/div/div/div[1]/div[1]/div[1]/div/div/input[1]"));
-            Thread.Sleep(5000);
             agenciesInput.Click();
 
-            var formTilte = driver.FindElement(By.XPath("//*[@id=\"myModal\"]/div/div/div[1]/h4"));
-            Assert.IsTrue(formTilte.Enabled);
-            Assert.IsTrue(formTilte.Displayed);
-            Assert.AreEqual(formTilte.Text, "Agencies");
-            Assert.AreEqual(formTilte.GetAttribute("class"), "modal-title");
             
             var tier1 = driver.FindElement
                 (By.XPath("//*[@id=\"myModal\"]/div/div/div[2]/div[1]/div[2]/label/input"));

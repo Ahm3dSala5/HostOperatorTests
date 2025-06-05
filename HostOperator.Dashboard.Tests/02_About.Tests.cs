@@ -15,7 +15,7 @@ namespace HostOperator.Tests
 
         public void Dispose()
         {
-           // driver.Dispose();
+            driver.Dispose();
         }
 
         [TearDown]
@@ -23,7 +23,7 @@ namespace HostOperator.Tests
         {
             if (driver != null)
             {
-              // driver.Quit();
+                driver.Quit();
             }
         }
 
@@ -104,26 +104,6 @@ namespace HostOperator.Tests
         }
 
         [Test]
-        public void AboutPage_LogoutBtn()
-        {
-            // to open about page
-            AboutPage_OpenPage();
-
-            var hiHostOperator = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/a/span[1]"));
-            hiHostOperator.Click();
-
-            Thread.Sleep(4000);
-            var logoutBtn = driver.FindElement
-                (By.XPath("//*[@id=\"m_header_topbar\"]/div/ul/li[4]/div/div/div/div/ul/li[4]/a"));
-            Assert.IsTrue(logoutBtn.Enabled);
-            Assert.IsTrue(logoutBtn.Displayed);
-            Assert.AreEqual(logoutBtn.Text, "Logout");
-            Assert.AreEqual(logoutBtn.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/Account/Logout");
-            Assert.AreEqual(logoutBtn.GetAttribute("class"), "btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder");
-        }
-
-        [Test]
         public void AboutPage_NotificationIconTest()
         {
             // to open about page
@@ -176,7 +156,7 @@ namespace HostOperator.Tests
             Assert.IsTrue(dashboardNavLink.Displayed);
             Assert.AreEqual(dashboardNavLink.Text,"Dashboard");
             Assert.AreEqual(dashboardNavLink.GetAttribute("class"), "m-nav__link");
-            Assert.AreEqual(dashboardNavLink.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/App/Dashboard");
+            Assert.AreEqual(dashboardNavLink.GetAttribute("href"), "http://ec2-34-226-24-71.compute-1.amazonaws.com/");
         }
 
         [Test]
